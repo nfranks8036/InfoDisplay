@@ -1,3 +1,8 @@
+///usr/bin/env jbang "$0" "$@" ; exit $?
+
+//DEPS org.jetbrains:annotations:24.1.0
+//DEPS org.openjfx:javafx-controls:22.0.1
+
 package net.cybercake.display;
 
 import javafx.stage.Stage;
