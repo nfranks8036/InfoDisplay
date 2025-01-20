@@ -1,5 +1,7 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 
+//MAIN net.cybercake.display.Main
+
 //DEPS org.jetbrains:annotations:24.1.0
 //DEPS org.openjfx:javafx-controls:22.0.1
 
