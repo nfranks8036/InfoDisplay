@@ -36,7 +36,7 @@ public class Application extends javafx.application.Application {
         scene.setFill(Color.rgb(0, 0, 0, 1.0));
         stage.setScene(scene);
 
-        Text text = new Text("No program data: 12");
+        Text text = new Text("No program data: 13");
         text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         text.setFill(Color.rgb(255, 255, 255, 1.0));
         grid.add(text, 0, 0, 2, 1);
