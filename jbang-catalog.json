@@ -3,12 +3,10 @@
     "infodisplay": {
       "file": "src/main/java/net/cybercake/display/Main.java",
       "description": "Run the main class in the project",
-      "jbang": {
-        "deps": [
-          "org.openjfx:javafx-controls:22.0.1"
-        ],
-        "javaVersion": "21"
-      }
+      "deps": [
+        "org.openjfx:javafx-controls:22.0.1"
+      ],
+      "javaVersion": "21"
     }
   }
 }
