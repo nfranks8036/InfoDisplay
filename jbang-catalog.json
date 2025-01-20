@@ -5,7 +5,6 @@
       "description": "Run the main class in the project",
       "jbang": {
         "deps": [
-          "org.jetbrains:annotations:24.1.0",
           "org.openjfx:javafx-controls:22.0.1"
         ],
         "javaVersion": "21"

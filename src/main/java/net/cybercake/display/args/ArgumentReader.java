@@ -2,7 +2,6 @@ package net.cybercake.display.args;
 
 import net.cybercake.display.utils.Log;
 import net.cybercake.display.utils.Pair;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.*;
@@ -27,7 +26,7 @@ public class ArgumentReader implements Serializable {
         return getArg(key, false);
     }
 
-    public Argument getArg(String key, boolean required, @Nullable String... aliases) {
+    public Argument getArg(String key, boolean required, String... aliases) {
         List<String> argAliases = new ArrayList<>(Collections.singleton(key));
         if(aliases != null && aliases.length > 0) argAliases.addAll(Arrays.stream(aliases).toList());
         for(String arg : argAliases)
