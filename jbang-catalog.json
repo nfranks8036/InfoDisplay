@@ -6,7 +6,7 @@
       "jbang": {
         "deps": [
           "org.jetbrains:annotations:24.1.0",
-          "org.openjfk:javafx-controls:22.0.1"
+          "org.openjfx:javafx-controls:22.0.1"
         ],
         "javaVersion": "21"
       }
