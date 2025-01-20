@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "infodisplay": {
+      "file": "src/main/java/net/cybercake/display/Main.java",
+      "description": "Run the main class in the project",
+      "jbang": {
+        "deps": [
+          "org.jetbrains:annotations:24.1.0",
+          "org.openjfk:javafx-controls:22.0.1"
+        ],
+        "javaVersion": "21"
+      }
+    }
+  }
+}
