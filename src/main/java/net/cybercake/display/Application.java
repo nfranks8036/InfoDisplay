@@ -36,7 +36,7 @@ public class Application extends javafx.application.Application {
         scene.setFill(Color.rgb(0, 0, 0, 1.0));
         stage.setScene(scene);
 
-        Text text = new Text("No program data: 154840");
+        Text text = new Text("HELLO MOM. STOP STEALING MY CANDY I GOT FOR CHRISTMAS.");
         text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         text.setFill(Color.rgb(255, 255, 255, 1.0));
         grid.add(text, 0, 0, 2, 1);
