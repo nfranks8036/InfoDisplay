@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import net.cybercake.display.args.ArgumentReader;
 
@@ -47,24 +49,24 @@ public class Application extends javafx.application.Application {
         text.setFill(Color.rgb(255, 255, 255, 1.0));
         grid.add(text, 0, 0, 1, 1);
 
-//        WebView view = new WebView();
-//        WebEngine engine = view.getEngine();
-//
-//        engine.documentProperty().addListener((obs, oldDoc, newDoc) -> {
-//            if (newDoc != null) {
-//                engine.executeScript(
-//                        "document.body.style.backgroundColor = 'black';" +
-//                                "document.body.style.color = 'white';"
-//                );
-//            }
-//        });
-//
-//        engine.load("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
-//        grid.add(view, 0, 0, 2, 2);
+        WebView view = new WebView();
+        WebEngine engine = view.getEngine();
 
-        Image image = new Image(new File(new File(".", "images"), "kiss.gif").toURI().toURL().openStream(), 1920, 1080, false, false);
-        ImageView view = new ImageView(image);
+        engine.documentProperty().addListener((obs, oldDoc, newDoc) -> {
+            if (newDoc != null) {
+                engine.executeScript(
+                        "document.body.style.backgroundColor = 'black';" +
+                                "document.body.style.color = 'white';"
+                );
+            }
+        });
+
+        engine.load("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
         grid.add(view, 0, 0, 2, 2);
+
+//        Image image = new Image(new File(new File(".", "images"), "kiss.gif").toURI().toURL().openStream(), 1920, 1080, false, false);
+//        ImageView view = new ImageView(image);
+//        grid.add(view, 0, 0, 2, 2);
 
 
 
