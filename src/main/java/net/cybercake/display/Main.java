@@ -17,6 +17,7 @@ public class Main {
     private static long startTime;
 
 //    public static String OPEN_WEATHER_API_KEY = "8bb09be56ab7764152e7a4df426c7de0";
+//    public static String NEWS_API_KEY = "2ecee9e26c36471a91f78205fabc7e41";
     public static String SEPARATOR = "-".repeat(75);
 
     public static void main(String[] args) {
