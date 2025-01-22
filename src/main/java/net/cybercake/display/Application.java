@@ -8,16 +8,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import net.cybercake.display.args.ArgumentReader;
 
-import java.util.Objects;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 public class Application extends javafx.application.Application {
 
@@ -29,7 +28,7 @@ public class Application extends javafx.application.Application {
     }
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws IOException {
         stage.setTitle("Info Display");
 
         GridPane grid = new GridPane();
@@ -63,7 +62,7 @@ public class Application extends javafx.application.Application {
 //        engine.load("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
 //        grid.add(view, 0, 0, 2, 2);
 
-        Image image = new Image(this.getClass().getResourceAsStream("two-black-people.gif"), 1920, 1080, false, false);
+        Image image = new Image(new File(".", "kiss.gif").toURI().toURL().openStream(), 1920, 1080, false, false);
         ImageView view = new ImageView(image);
         grid.add(view, 0, 0, 2, 2);
 
