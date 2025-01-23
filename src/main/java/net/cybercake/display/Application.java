@@ -72,8 +72,8 @@ public class Application extends javafx.application.Application {
         ImageView view = new ImageView(image);
         grid.add(view, 1, 1, 1, 1);
 
-        Text text = new Text("LESBIANS KISSING PASSIONATELY");
-        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 140));
+        Text text = new Text("GAY POR");
+        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 500));
         text.setFill(Color.rgb(255, 255, 255, 1.0));
         text.setTextAlignment(TextAlignment.CENTER);
         grid.add(text, 1, 1, 3, 1);
