@@ -119,7 +119,7 @@ public class Application extends javafx.application.Application {
                 timeDisplay.executeScript(
                         "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
                                 "document.body.style.color = 'white';" +
-                                "window.scrollTo(0, 100);"
+                                "window.scrollTo(0, 40);"
                 );
             }
         });
@@ -127,8 +127,11 @@ public class Application extends javafx.application.Application {
         timeDisplay.reload();
         grid.add(timeView, 1, 2, 1, 1);
 
-        stage.setMaximized(true);
-        stage.setFullScreen(true);
+        stage.setResizable(false);
+        stage.setWidth(1920);
+        stage.setHeight(1080);
+//        stage.setMaximized(true);
+//        stage.setFullScreen(true);
         stage.setFullScreenExitHint("Loading program, please wait!");
         stage.show();
     }
