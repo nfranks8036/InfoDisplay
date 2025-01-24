@@ -1,6 +1,5 @@
 package net.cybercake.display;
 
-import com.sun.javafx.webkit.Accessor;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
