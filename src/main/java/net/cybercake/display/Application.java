@@ -1,10 +1,12 @@
 package net.cybercake.display;
 
+import com.sun.javafx.webkit.Accessor;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -52,31 +54,10 @@ public class Application extends javafx.application.Application {
 //        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 //        text.setFill(Color.rgb(255, 255, 255, 1.0));
 //        grid.add(text, 0, 0, 1, 1);
-//
-//        WebView view = new WebView();
-//        WebEngine engine = view.getEngine();
-//
-//        engine.documentProperty().addListener((obs, oldDoc, newDoc) -> {
-//            if (newDoc != null) {
-//                engine.executeScript(
-//                        "document.body.style.backgroundColor = 'black';" +
-//                                "document.body.style.color = 'white';"
-//                );
-//            }
-//        });
-//
-//        engine.load("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
-//        grid.add(view, 0, 0, 2, 2);
 
-        Image image = new Image(new File(new File(".", "images"), "kiss.gif").toURI().toURL().openStream(), 1920, 1080, false, false);
-        ImageView view = new ImageView(image);
-        grid.add(view, 1, 1, 1, 1);
-
-        Text text = new Text("GAY POR");
-        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 500));
-        text.setFill(Color.rgb(255, 255, 255, 1.0));
-        text.setTextAlignment(TextAlignment.CENTER);
-        grid.add(text, 1, 1, 3, 1);
+        Image specialImage = new Image(new File(new File(".", "images"), "kiss.gif").toURI().toURL().openStream(), (double) 1920 / 2, 1080, false, false);
+        ImageView specialImageViewer = new ImageView(specialImage);
+        grid.add(specialImageViewer, 2, 2, 1, 2);
 
 //        Text text = new Text("???");
 //        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -117,6 +98,19 @@ public class Application extends javafx.application.Application {
 //        Thread thread = new Thread(task);
 //        thread.setDaemon(true);
 //        thread.start();
+
+        WebView view = new WebView();
+        view.setStyle("-fx-background-color: rgba(255,0,0,0);");
+        WebEngine weatherDisplay = view.getEngine();
+        weatherDisplay.documentProperty().addListener((obs, oldDoc, newDoc) -> {
+            if (newDoc != null) {
+                weatherDisplay.executeScript(
+                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';"
+                );
+            }
+        });
+        weatherDisplay.load("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
+        grid.add(view, 1, 1, 1, 1);
 
         stage.setMaximized(true);
         stage.setFullScreen(true);
