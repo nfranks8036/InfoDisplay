@@ -98,9 +98,9 @@ public class Application extends javafx.application.Application {
 //        thread.setDaemon(true);
 //        thread.start();
 
-        WebView view = new WebView();
-        view.setStyle("-fx-background-color: rgba(255,0,0,0);");
-        WebEngine weatherDisplay = view.getEngine();
+        WebView weatherView = new WebView();
+        weatherView.setStyle("-fx-background-color: rgba(255,0,0,0);");
+        WebEngine weatherDisplay = weatherView.getEngine();
         weatherDisplay.documentProperty().addListener((obs, oldDoc, newDoc) -> {
             if (newDoc != null) {
                 weatherDisplay.executeScript(
@@ -109,7 +109,23 @@ public class Application extends javafx.application.Application {
             }
         });
         weatherDisplay.load("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
-        grid.add(view, 1, 1, 1, 1);
+        grid.add(weatherView, 1, 1, 1, 1);
+
+        WebView timeView = new WebView();
+        timeView.setPrefSize(((double) 1920 / 2) + 100, (double) 1080 / 2);
+        WebEngine timeDisplay = timeView.getEngine();
+        timeDisplay.documentProperty().addListener((obs, oldDoc, newDoc) -> {
+            if (newDoc != null) {
+                timeDisplay.executeScript(
+                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
+                                "document.body.style.color = 'white';" +
+                                "window.scrollTo(0, 100);"
+                );
+            }
+        });
+        timeDisplay.load("https://time.gov/?t=24");
+        timeDisplay.reload();
+        grid.add(timeView, 1, 2, 1, 1);
 
         stage.setMaximized(true);
         stage.setFullScreen(true);
