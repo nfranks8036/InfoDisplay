@@ -44,19 +44,23 @@ public class Application extends javafx.application.Application {
         grid.setVgap(10);
         grid.setBackground(Background.fill(Color.rgb(0, 0, 0, 1.0)));
         grid.setPadding(new Insets(25, 25, 25, 25));
+        Log.debug("Created grid: " + grid);
 
         Scene scene = new Scene(grid, 300, 275);
         scene.setFill(Color.rgb(0, 0, 0, 1.0));
         stage.setScene(scene);
+        Log.debug("Created scene: Scene width=" + scene.getWidth() + ", height=" + scene.getHeight() + ", fill=" + scene.getFill());
 
 //        Text text = new Text("No program data.");
 //        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 //        text.setFill(Color.rgb(255, 255, 255, 1.0));
 //        grid.add(text, 0, 0, 1, 1);
 
-        Image specialImage = new Image(new File(new File(".", "images"), "kiss.gif").toURI().toURL().openStream(), (double) 1920 / 2, 1080, false, false);
+        File specialImageUsed = new File(new File(".", "images"), "kiss.gif");
+        Image specialImage = new Image(specialImageUsed.toURI().toURL().openStream(), (double) 1920 / 2, 1080, false, false);
         ImageView specialImageViewer = new ImageView(specialImage);
         grid.add(specialImageViewer, 2, 2, 1, 2);
+        Log.debug("Created special image from file " + specialImageUsed.getPath());
 
 //        Text text = new Text("???");
 //        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -110,6 +114,7 @@ public class Application extends javafx.application.Application {
         });
         weatherDisplay.load("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
         grid.add(weatherView, 1, 1, 1, 1);
+        Log.debug("Created weather widget, browser is currently displaying " + weatherDisplay.getLocation());
 
         WebView timeView = new WebView();
         timeView.setPrefSize(((double) 1920 / 2) + 100, (double) 1080 / 2);
@@ -126,12 +131,17 @@ public class Application extends javafx.application.Application {
         timeDisplay.load("https://time.gov/?t=24");
         timeDisplay.reload();
         grid.add(timeView, 1, 2, 1, 1);
+        Log.debug("Created time widget, browser is currently displaying " + timeDisplay.getLocation());
 
-        stage.setResizable(false);
-        stage.setWidth(1920);
-        stage.setHeight(1080);
-//        stage.setMaximized(true);
-//        stage.setFullScreen(true);
+
+        if (Main.getUser().equalsIgnoreCase("oeroo")) {
+            stage.setResizable(false);
+            stage.setWidth(1920);
+            stage.setHeight(1080);
+        } else {
+            stage.setMaximized(true);
+            stage.setFullScreen(true);
+        }
         stage.setFullScreenExitHint("Loading program, please wait!");
         stage.show();
     }

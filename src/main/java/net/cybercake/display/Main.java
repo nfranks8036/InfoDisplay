@@ -8,6 +8,8 @@ import net.cybercake.display.args.ArgumentReader;
 import net.cybercake.display.utils.Center;
 import net.cybercake.display.utils.Log;
 
+import java.io.File;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -33,6 +35,9 @@ public class Main {
                 reader = new ArgumentReader(runtimeArgs);
             }
 
+            Log.line("Project directory: " + new File("").getAbsolutePath());
+            Log.line("Logged in as user '" + Main.getUser() + "'");
+
             Log.line(     SEPARATOR                                                           );
             Log.line(     Center.text("InfoDisplay", SEPARATOR.length())              );
             Log.line(     Center.text("Made by Noah Franks", SEPARATOR.length())      );
@@ -46,5 +51,9 @@ public class Main {
             exception.printStackTrace();
             System.exit(1); // generic exception
         }
+    }
+
+    public static String getUser() {
+        return Objects.requireNonNullElse(System.getProperty("user.name"), "");
     }
 }
