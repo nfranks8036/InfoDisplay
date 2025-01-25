@@ -62,6 +62,11 @@ public class Application extends javafx.application.Application {
         grid.add(specialImageViewer, 2, 2, 1, 2);
         Log.debug("Created special image from file " + specialImageUsed.getPath());
 
+        Text specialText = new Text("(LESBIANS)");
+        specialText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 185));
+        specialText.setFill(Color.rgb(255, 255, 255, 1.0));
+        grid.add(specialText, 2, 1, 1, 1);
+
 //        Text text = new Text("???");
 //        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
 //        text.setFill(Color.rgb(255, 255, 255, 1.0));
