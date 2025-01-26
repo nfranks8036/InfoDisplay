@@ -149,7 +149,7 @@ public class Application extends javafx.application.Application {
             stage.setMaximized(true);
             stage.setFullScreen(true);
         }
-        stage.setFullScreenExitHint("Loading program, please wait!");
+        stage.setFullScreenExitHint("Loading dashboard, please wait!");
         stage.show();
     }
 
