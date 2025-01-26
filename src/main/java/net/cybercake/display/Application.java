@@ -142,11 +142,12 @@ public class Application extends javafx.application.Application {
         Log.debug("Created time widget, browser is currently displaying " + timeDisplay.getLocation());
 
         WebView newsView = new WebView();
-        newsView.setPrefSize((double) 1920 / 2, (double) 1080 / 2);
+        newsView.setPrefSize((double) 1920, (double) 1080);
         WebEngine newsDisplay = newsView.getEngine();
 //        newsDisplay.load("https://www.youtube.com/embed/YDfiTGGPYCk?autoplay=1");
         newsDisplay.load("https://watch.noahf.net/");
-        grid.add(newsView, 2, 2, 1, 1);
+//        grid.add(newsView, 2, 2, 1, 1);
+        grid.add(newsView, 1, 1, 2, 2);
         Log.debug("Created news widget, browser is currently displaying " + newsDisplay.getLocation());
 
         if (Main.getUser().equalsIgnoreCase("oeroo")) {
