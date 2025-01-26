@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
@@ -47,6 +48,7 @@ public class Application extends javafx.application.Application {
         Log.debug("Created grid: " + grid);
 
         Scene scene = new Scene(grid, 300, 275);
+        scene.setCursor(Cursor.NONE);
         scene.setFill(Color.rgb(0, 0, 0, 1.0));
         stage.setScene(scene);
         Log.debug("Created scene: Scene width=" + scene.getWidth() + ", height=" + scene.getHeight() + ", fill=" + scene.getFill());
