@@ -17,7 +17,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-client_secret
+client_secret.json
 
 ### Eclipse ###
 .apt_generated
