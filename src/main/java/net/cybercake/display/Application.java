@@ -56,16 +56,16 @@ public class Application extends javafx.application.Application {
 //        text.setFill(Color.rgb(255, 255, 255, 1.0));
 //        grid.add(text, 0, 0, 1, 1);
 
-        File specialImageUsed = new File(new File(".", "images"), "kiss.gif");
-        Image specialImage = new Image(specialImageUsed.toURI().toURL().openStream(), (double) 1920 / 2, 1080, false, false);
+        File specialImageUsed = new File(new File(".", "images"), "AVIRAJ3.png");
+        Image specialImage = new Image(specialImageUsed.toURI().toURL().openStream(), (double) 1920, 1080, false, false);
         ImageView specialImageViewer = new ImageView(specialImage);
-        grid.add(specialImageViewer, 2, 2, 1, 2);
+        grid.add(specialImageViewer, 1, 1, 1, 1);
         Log.debug("Created special image from file " + specialImageUsed.getPath());
-
-        Text specialText = new Text("(LESBIANS)");
-        specialText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 185));
-        specialText.setFill(Color.rgb(255, 255, 255, 1.0));
-        grid.add(specialText, 2, 1, 1, 1);
+//
+//        Text specialText = new Text("(LESBIANS)");
+//        specialText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 185));
+//        specialText.setFill(Color.rgb(255, 255, 255, 1.0));
+//        grid.add(specialText, 2, 1, 1, 1);
 
 //        Text text = new Text("???");
 //        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -107,36 +107,36 @@ public class Application extends javafx.application.Application {
 //        thread.setDaemon(true);
 //        thread.start();
 
-        WebView weatherView = new WebView();
-        weatherView.setStyle("-fx-background-color: rgba(255,0,0,0);");
-        WebEngine weatherDisplay = weatherView.getEngine();
-        weatherDisplay.documentProperty().addListener((obs, oldDoc, newDoc) -> {
-            if (newDoc != null) {
-                weatherDisplay.executeScript(
-                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';"
-                );
-            }
-        });
-        weatherDisplay.load("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
-        grid.add(weatherView, 1, 1, 1, 1);
-        Log.debug("Created weather widget, browser is currently displaying " + weatherDisplay.getLocation());
-
-        WebView timeView = new WebView();
-        timeView.setPrefSize(((double) 1920 / 2) + 100, (double) 1080 / 2);
-        WebEngine timeDisplay = timeView.getEngine();
-        timeDisplay.documentProperty().addListener((obs, oldDoc, newDoc) -> {
-            if (newDoc != null) {
-                timeDisplay.executeScript(
-                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
-                                "document.body.style.color = 'white';" +
-                                "window.scrollTo(0, 40);"
-                );
-            }
-        });
-        timeDisplay.load("https://time.gov/?t=24");
-        timeDisplay.reload();
-        grid.add(timeView, 1, 2, 1, 1);
-        Log.debug("Created time widget, browser is currently displaying " + timeDisplay.getLocation());
+//        WebView weatherView = new WebView();
+//        weatherView.setStyle("-fx-background-color: rgba(255,0,0,0);");
+//        WebEngine weatherDisplay = weatherView.getEngine();
+//        weatherDisplay.documentProperty().addListener((obs, oldDoc, newDoc) -> {
+//            if (newDoc != null) {
+//                weatherDisplay.executeScript(
+//                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';"
+//                );
+//            }
+//        });
+//        weatherDisplay.load("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
+//        grid.add(weatherView, 1, 1, 1, 1);
+//        Log.debug("Created weather widget, browser is currently displaying " + weatherDisplay.getLocation());
+//
+//        WebView timeView = new WebView();
+//        timeView.setPrefSize(((double) 1920 / 2) + 100, (double) 1080 / 2);
+//        WebEngine timeDisplay = timeView.getEngine();
+//        timeDisplay.documentProperty().addListener((obs, oldDoc, newDoc) -> {
+//            if (newDoc != null) {
+//                timeDisplay.executeScript(
+//                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
+//                                "document.body.style.color = 'white';" +
+//                                "window.scrollTo(0, 40);"
+//                );
+//            }
+//        });
+//        timeDisplay.load("https://time.gov/?t=24");
+//        timeDisplay.reload();
+//        grid.add(timeView, 1, 2, 1, 1);
+//        Log.debug("Created time widget, browser is currently displaying " + timeDisplay.getLocation());
 
 
         if (Main.getUser().equalsIgnoreCase("oeroo")) {
