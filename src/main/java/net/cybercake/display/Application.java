@@ -59,15 +59,16 @@ public class Application extends javafx.application.Application {
 //        grid.add(text, 0, 0, 1, 1);
 
         File specialImageUsed = new File(new File(".", "images"), "kiss.gif");
-        Image specialImage = new Image(specialImageUsed.toURI().toURL().openStream(), (double) 1920 / 2, 1080, false, false);
+        Image specialImage = new Image(specialImageUsed.toURI().toURL().openStream(), (double) 1920 / 2, (double) 1080 / 2, false, false);
         ImageView specialImageViewer = new ImageView(specialImage);
-        grid.add(specialImageViewer, 2, 2, 1, 2);
+        grid.add(specialImageViewer, 2, 1, 1, 1);
         Log.debug("Created special image from file " + specialImageUsed.getPath());
 
         Text specialText = new Text("(LESBIANS)");
         specialText.setFont(Font.font("Tahoma", FontWeight.NORMAL, 185));
         specialText.setFill(Color.rgb(255, 255, 255, 1.0));
         grid.add(specialText, 2, 1, 1, 1);
+        Log.debug("Created special text: " + specialText.getText());
 
 //        Text text = new Text("???");
 //        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -140,12 +141,20 @@ public class Application extends javafx.application.Application {
         grid.add(timeView, 1, 2, 1, 1);
         Log.debug("Created time widget, browser is currently displaying " + timeDisplay.getLocation());
 
+        WebView newsView = new WebView();
+        newsView.setPrefSize((double) 1920 / 2, (double) 1080 / 2);
+        WebEngine newsDisplay = newsView.getEngine();
+//        newsDisplay.load("https://www.youtube.com/embed/YDfiTGGPYCk?autoplay=1");
+        newsDisplay.load("https://watch.noahf.net/");
+        grid.add(newsView, 2, 2, 1, 1);
+        Log.debug("Created news widget, browser is currently displaying " + newsDisplay.getLocation());
 
         if (Main.getUser().equalsIgnoreCase("oeroo")) {
             stage.setResizable(false);
             stage.setWidth(1920);
             stage.setHeight(1080);
         } else {
+            Log.debug("Maximizing screen...");
             stage.setMaximized(true);
             stage.setFullScreen(true);
         }
