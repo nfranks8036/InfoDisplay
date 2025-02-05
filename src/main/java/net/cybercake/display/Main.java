@@ -3,15 +3,16 @@
 
 package net.cybercake.display;
 
-import javafx.stage.Stage;
 import net.cybercake.display.args.ArgumentReader;
 import net.cybercake.display.utils.Center;
 import net.cybercake.display.utils.Log;
 
+import java.awt.*;
 import java.io.File;
 import java.util.Objects;
 import java.util.Scanner;
 
+@SuppressWarnings("CallToPrintStackTrace")
 public class Main {
 
     public static Application app;
@@ -43,6 +44,10 @@ public class Main {
             Log.line(     Center.text("Made by Noah Franks", SEPARATOR.length())      );
             Log.line(     Center.text("Version 1.0.0", SEPARATOR.length())            );
             Log.line(     SEPARATOR                                                           );
+
+            if (GraphicsEnvironment.isHeadless()) {
+                throw new IllegalStateException("This program cannot run in a headless environment.");
+            }
 
             Application.instance(reader);
         } catch (Exception exception) {
