@@ -18,6 +18,11 @@ out/
 !**/src/test/**/out/
 
 client_secret.json
+refresh_token.txt
+
+cache/
+cache
+
 
 ### Eclipse ###
 .apt_generated
