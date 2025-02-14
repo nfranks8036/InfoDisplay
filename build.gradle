@@ -20,6 +20,7 @@ repositories {
 
 dependencies {
     implementation 'com.google.api-client:google-api-client:2.6.0'
+    implementation 'com.github.junrar:junrar:7.5.5'
 
 //    implementation files('libs/jcef.jar') // Add JCEF JAR
     implementation 'me.friwi:jcefmaven:127.3.1'
