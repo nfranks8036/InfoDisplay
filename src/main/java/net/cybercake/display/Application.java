@@ -145,7 +145,16 @@ public class Application extends javafx.application.Application {
         newsView.setPrefSize((double) 1920 / 2, (double) 1080 / 2);
         WebEngine newsDisplay = newsView.getEngine();
 //        newsDisplay.load("https://www.youtube.com/embed/YDfiTGGPYCk?autoplay=1");
-        newsDisplay.load("https://www.ground.news/");
+        newsDisplay.load("https://www.timeanddate.com/worldclock/fullscreen.html?n=179");
+        newsDisplay.documentProperty().addListener((obs, oldDoc, newDoc) -> {
+            if (newDoc != null) {
+                newsDisplay.executeScript(
+                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
+                                "document.body.style.color = 'white';" +
+                                "window.scrollTo(0, 40);"
+                );
+            }
+        });
         grid.add(newsView, 2, 2, 1, 1);
         Log.debug("Created news widget, browser is currently displaying " + newsDisplay.getLocation());
 
