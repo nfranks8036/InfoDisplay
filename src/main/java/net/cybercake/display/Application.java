@@ -144,7 +144,8 @@ public class Application extends javafx.application.Application {
         WebView newsView = new WebView();
         newsView.setPrefSize((double) 1920 / 2, (double) 1080 / 2);
         WebEngine newsDisplay = newsView.getEngine();
-        newsDisplay.load("https://www.youtube.com/embed/YDfiTGGPYCk?autoplay=1");
+//        newsDisplay.load("https://www.youtube.com/embed/YDfiTGGPYCk?autoplay=1");
+        newsDisplay.load("https://www.ground.news/");
         grid.add(newsView, 2, 2, 1, 1);
         Log.debug("Created news widget, browser is currently displaying " + newsDisplay.getLocation());
 
