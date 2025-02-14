@@ -6,10 +6,9 @@
       "repositories": [
         "https://maven.google.com/"
       ],
-      "dependencies": [
-        "com.google.api-client:google-api-client:2.6.0",
-        "me.friwi:jcefmaven:127.3.1",
-        "com.github.junrar:junrar:7.5.5"
+      "deps": [
+        "org.openjfx:javafx-controls:22.0.1",
+        "org.openjfx:javafx-web:22.0.1"
       ],
       "javaVersion": "21"
     }

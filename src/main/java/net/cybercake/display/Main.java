@@ -3,8 +3,8 @@
 
 package net.cybercake.display;
 
+import javafx.stage.Stage;
 import net.cybercake.display.args.ArgumentReader;
-import net.cybercake.display.libraries.LibUnpacker;
 import net.cybercake.display.utils.Center;
 import net.cybercake.display.utils.Log;
 
@@ -14,7 +14,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 
-@SuppressWarnings("CallToPrintStackTrace")
 public class Main {
 
     public static Application app;
@@ -49,12 +48,6 @@ public class Main {
 
             if (GraphicsEnvironment.isHeadless()) {
                 throw new IllegalStateException("This program cannot run in a headless environment.");
-            }
-
-            try {
-                LibUnpacker.unpack();
-            } catch (Exception exception) {
-                throw new RuntimeException("**** CRITICAL ERROR: FAILED TO EXTRACT REQUIRED LIBRARIES!! ****", exception);
             }
 
             Application.instance(reader);
