@@ -4,18 +4,18 @@ import com.jogamp.opengl.GLException;
 import net.cybercake.display.args.ArgumentReader;
 import net.cybercake.display.browser.JWebPage;
 import net.cybercake.display.browser.WebPageManager;
-import net.cybercake.display.browser.youtube.JYouTubePlayer;
-import net.cybercake.display.browser.youtube.YouTubePlayerManager;
+import net.cybercake.display.status.StatusIndicatorManager;
 import net.cybercake.display.utils.Log;
+import net.cybercake.display.vlc.JVlcPlayer;
+import net.cybercake.display.vlc.VlcManager;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 @SuppressWarnings("CallToPrintStackTrace")
 public class Application {
@@ -23,29 +23,42 @@ public class Application {
     public static final int WINDOW_WIDTH = 1920;
     public static final int WINDOW_HEIGHT = 1080;
 
+    public static long startTime;
+
     public static void instance(ArgumentReader args) throws IOException {
-        Application application = new Application(args, new WebPageManager(args));
+        startTime = System.currentTimeMillis();
+        Application application = new Application(
+                args,
+                new WebPageManager(args),
+                new VlcManager(args),
+                new StatusIndicatorManager(args)
+        );
+
         SwingUtilities.invokeLater(() -> {
             try {
                 application.start();
             } catch (GLException glException) {
                 glException.printStackTrace();
                 Toolkit.getDefaultToolkit().beep();
-                JOptionPane.showMessageDialog(null, "Failed to initialize OpenGL components:\n\n" + glException, "Info Display - OpenGL Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Failed to initialize OpenGL components:\n\n" + paginate(glException), "Info Display - OpenGL Error", JOptionPane.ERROR_MESSAGE);
             } catch (Exception exception) {
                 exception.printStackTrace();
                 Toolkit.getDefaultToolkit().beep();
-                JOptionPane.showMessageDialog(null, "A fatal exception has occurred in the program:\n\n" + exception, "Info Display - Fatal Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "A fatal exception has occurred in the program:\n\n" + paginate(exception), "Info Display - Fatal Error", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
 
     private final ArgumentReader args;
     private final WebPageManager web;
+    private final VlcManager vlc;
+    private final StatusIndicatorManager status;
 
-    public Application(ArgumentReader args, WebPageManager web) {
+    public Application(ArgumentReader args, WebPageManager web, VlcManager vlc, StatusIndicatorManager status) {
         this.args = args;
         this.web = web;
+        this.vlc = vlc;
+        this.status = status;
     }
 
     private JFrame frame;
@@ -53,6 +66,7 @@ public class Application {
 
     public void start() throws IOException {
         this.frame = new JFrame("Info Display");
+
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setCursor(Cursor.getDefaultCursor());
         this.frame.setBackground(Color.black);
@@ -69,25 +83,43 @@ public class Application {
 //        text.setFill(Color.rgb(255, 255, 255, 1.0));
 //        grid.add(text, 0, 0, 1, 1);
 
-        File specialImageUsed = new File(new File(".", "images"), "kiss.gif");
-        BufferedImage specialImage = ImageIO.read(specialImageUsed);
-        JLabel specialImageViewer = new JLabel(new ImageIcon(specialImage));
-        specialImageViewer.setSize(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-        this.root.add(specialImageViewer);
-        Log.debug("Created special image from file " + specialImageUsed.getPath());
-
-        JWebPage weather = this.web.createWebPage("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
-        weather.setSize(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-        this.root.add(weather);
-
-        JWebPage time = this.web.createWebPage("https://www.time.gov/?t=24");
-        time.executeJavaScript("window.scrollTo(0, 40);");
-        time.setSize(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+        JWebPage time = this.web.createWebPage("https://www.timeanddate.com/worldclock/fullscreen.html?n=881");
+        time.executeJavaScript(
+                "document.body.style.color = 'white';" +
+                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';"
+        );
         this.root.add(time);
 
-        JYouTubePlayer player = this.web.youtube.createPlayer("https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1");
-        time.setSize(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-        this.root.add(player);
+        JWebPage weather = this.web.createWebPage("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
+        weather.executeJavaScript("document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';");
+        this.root.add(weather);
+
+        JWebPage timezones = this.web.createWebPage("https://www.time.gov/?t=24");
+        timezones.executeJavaScript(
+                "window.scrollTo(0, 30);" +
+                        "document.body.style.color = 'white';" +
+                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
+                        "document.body.style.zoom = 0.9;"
+        );
+        this.root.add(timezones);
+
+        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
+        this.root.add(youtube);
+
+        this.status.implement(this.frame);
+        this.status.addFromSupp(() -> "DEBUG INFORMATION:");
+        this.status.addFromSupp(() -> "Uptime: " + ((System.currentTimeMillis() - Application.startTime) / 1000) + "s");
+        this.status.addFromSupp(() -> "OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " (" + System.getProperty("os.arch") + ") as " + System.getProperty("user.name"));
+        this.status.addFromCmd("Temperature", "vcgencmd measure_temp").peek((s) -> s.replace("'C", "°C"));
+        this.status.addFromCmd("CPU Usage", "top -bn1 | grep \"Cpu(s)\" | awk '{print 100 - $8}'").peek((s) -> s + "%");
+        this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> s + " MHz");
+        this.status.addFromCmd("ARM Allocated Memory", "vcgencmd get_mem arm");
+        this.status.addFromCmd("Memory Usage", "free -m | awk '/Mem:/ {print $3}'").peek((s) -> s + "MB");
+        this.status.addFromCmd("Memory Total", "free -m | awk '/Mem:/ {print $2}'").peek((s) -> s + "MB");
+        this.status.addFromCmd("Display", "vcgencmd get_lcd_info").peek((s) -> {
+            String[] items = s.split(" ");
+            return items[0] + "x" + items[1] + " (color: " + items[2] + "; refresh-rate=" + items[3] + ")";
+        });
 
         this.frame.getContentPane().add(this.root, BorderLayout.CENTER);
         this.frame.pack();
@@ -102,12 +134,21 @@ public class Application {
             this.frame.setUndecorated(true);
         }
         this.frame.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Application.this.dispose();
+            }
+
             @Override
             public void windowClosing(WindowEvent e) {
                 Application.this.dispose();
             }
         });
-        this.frame.setVisible(true);
+
+        SwingUtilities.invokeLater(() -> {
+            this.frame.setVisible(true);
+        });
     }
 
     public JFrame getFrame() {
@@ -121,6 +162,25 @@ public class Application {
     public void dispose() {
         Log.line("Disposing of Application...");
         this.web.dispose();
+    }
+
+
+
+    private static String paginate(Exception exception) {
+        String msg = exception.toString();
+        StringBuilder lines = new StringBuilder();
+        int characters = 0;
+        for (char c : msg.toCharArray()) {
+            if (characters > 70 || (characters > 60 && c == ' ')) {
+                characters = 0;
+                lines.append("\n");
+                if (c == ' ')
+                    continue;
+            }
+            lines.append(String.valueOf(c));
+            characters++;
+        }
+        return lines.toString();
     }
 
 }

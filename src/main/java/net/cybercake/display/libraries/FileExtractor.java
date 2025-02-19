@@ -20,7 +20,7 @@ public class FileExtractor {
     public void extract(File destination) throws RarException, IOException {
         Log.debug("|- Extracting archive at " + this.file + "...");
         if (!destination.exists()) {
-            if (!destination.mkdirs())
+            if (!destination.getAbsoluteFile().mkdirs())
                 throw new DestinationAlreadyExistsException("[CHECK] Failed to create destination dir for libraries: " + destination);
             Log.debug("|- Created destination folder at " + destination);
         } else {
@@ -36,23 +36,41 @@ public class FileExtractor {
             while ((header = archive.nextFileHeader()) != null) {
                 File output = new File(destination, header.getFileName().trim());
                 if (header.isDirectory()) {
-                    if (!output.mkdirs()) {
+                    if (!output.exists() && !output.mkdirs()) {
                         throw new IllegalStateException("[CHECK] Failed to create output dir from extraction at: " + output);
                     }
                     continue;
                 }
-                if (!output.exists() &&  !output.mkdirs() && !output.createNewFile()) {
+
+                if (!checkParent(output) && !output.createNewFile()) {
                     throw new IllegalStateException("[CHECK] Failed to create new file at: " + output);
                 }
-                try (FileOutputStream fileOutputStream = new FileOutputStream(output )) {
+
+                try (FileOutputStream fileOutputStream = new FileOutputStream(output)) {
                     archive.extractFile(header, fileOutputStream);
                     Log.debug("| Extracted " + header.getFileName());
                 }
             }
         }
+
         Log.debug("|- Successfully completed extraction in " + (System.currentTimeMillis() - mss) + "ms!");
     }
 
+    private boolean checkParent(File file) {
+        return createParent(file.getParentFile());
+    }
+
+    private boolean createParent(File file) {
+        if (file.exists())
+            return true;
+        if (createParent(file.getParentFile())) {
+            if (!file.mkdir()) {
+                throw new IllegalStateException("Failed to create parent file @ " + file.getAbsolutePath());
+            }
+            return true;
+        }
+        return false;
+    }
 
     static class DestinationAlreadyExistsException extends IllegalStateException {
 

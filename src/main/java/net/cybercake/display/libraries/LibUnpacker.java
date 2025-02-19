@@ -12,8 +12,8 @@ public class LibUnpacker {
     private static UnpackProgress progress = UnpackProgress.NOT_STARTED;
 
     public static void unpack() throws Exception {
-        File input = new File(".", "libs.rar");
-        File output = new File(".", "libs");
+        File input = new File(new File(".").getParentFile(), "libs.rar");
+        File output = new File(new File(".").getParentFile(), "libs");
 
         try {
             if (progress != UnpackProgress.NOT_STARTED)

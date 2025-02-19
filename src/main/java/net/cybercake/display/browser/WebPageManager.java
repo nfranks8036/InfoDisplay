@@ -1,8 +1,6 @@
 package net.cybercake.display.browser;
 
 import net.cybercake.display.args.ArgumentReader;
-import net.cybercake.display.browser.youtube.YouTubeAuthentication;
-import net.cybercake.display.browser.youtube.YouTubePlayerManager;
 import net.cybercake.display.utils.Log;
 import org.cef.CefApp;
 import org.cef.CefClient;
@@ -10,18 +8,14 @@ import org.cef.CefSettings;
 import org.cef.browser.CefBrowser;
 import org.cef.browser.CefFrame;
 import org.cef.handler.*;
-import org.cef.misc.BoolRef;
 import org.cef.network.CefCookie;
 import org.cef.network.CefCookieManager;
-import org.cef.network.CefRequest;
-import org.cef.network.CefResponse;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static net.cybercake.display.browser.youtube.YouTubePlayerManager.YOUTUBE_DOMAIN;
 
 public class WebPageManager {
 
@@ -30,10 +24,9 @@ public class WebPageManager {
 
     private final List<JWebPage> webPages;
     private final CefCookieManager cookies;
+    private final CookieExtractor extractor;
 
     private boolean frameCreated;
-
-    public YouTubePlayerManager youtube;
 
     public WebPageManager(ArgumentReader args) {
         this.webPages = new ArrayList<>();
@@ -46,19 +39,13 @@ public class WebPageManager {
         CefSettings settings = new CefSettings();
         settings.cache_path = new File(".").getAbsolutePath() + File.separator + "cache" + File.separator + "nonroot";
         settings.root_cache_path = new File(".").getAbsolutePath() + File.separator + "cache";
-        settings.persist_session_cookies = true;
         settings.windowless_rendering_enabled = false;
         settings.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:134.0) Gecko/20100101 Firefox/134.0";
         Log.line("Root cache for Chromium browser: " + settings.root_cache_path);
+        Log.line("Utilizing " + APP.getVersion());
         APP.setSettings(settings);
 
         CLIENT = APP.createClient();
-        CLIENT.addLifeSpanHandler(new CefLifeSpanHandlerAdapter() {
-            @Override
-            public void onAfterCreated(CefBrowser browser) {
-                Log.line("[JCEF] Browser created: " + browser);
-            }
-        });
         CLIENT.addLoadHandler(new CefLoadHandlerAdapter() {
             @Override
             public void onLoadEnd(CefBrowser browser, CefFrame frame, int httpStatusCode) {
@@ -70,10 +57,19 @@ public class WebPageManager {
             }
         });
 
-        youtube = new YouTubePlayerManager(this, args);
-
         this.cookies = CefCookieManager.getGlobalManager();
-        this.applyCookies();
+        CookieExtractor newExtractor = null;
+        long mss = System.currentTimeMillis();
+        try {
+            newExtractor = new FirefoxCookieExtractor().apply(this);
+        } catch (Exception exception) {
+            Log.line("-".repeat(80));
+            Log.line("FAILED TO EXTRACT COOKIES FROM FIREFOX");
+            this.printStackTrace(exception, null);
+            Log.line("-".repeat(80));
+        }
+        Log.debug("Done applying all cookies in " + (System.currentTimeMillis() - mss) + "ms!");
+        this.extractor = newExtractor;
     }
 
     public JWebPage createWebPage(String url) {
@@ -86,43 +82,64 @@ public class WebPageManager {
         }
     }
 
+    public JWebPage createFrom(JWebPage page) {
+        try {
+            this.webPages.add(page);
+            return page;
+        } catch (Exception exception) {
+            throw new IllegalStateException("Pre-created web page was not initialized corrected: " + exception, exception);
+        }
+    }
+
     public boolean isFrameCreated() {
         return this.frameCreated;
     }
 
     public void dispose() {
-        if (!this.webPages.isEmpty()) {
-            Log.line("Removing web pages...");
-            for (JWebPage page : this.webPages) {
-                if (page.getWebPageBrowser() == null) continue;
-                Log.line("| Removing " + page.getOriginalWebPageUrl());
-                page.getWebPageBrowser().close(true);
+        try {
+            if (!this.webPages.isEmpty()) {
+                Log.line("Removing web pages...");
+                for (JWebPage page : this.webPages) {
+                    if (page.getWebPageBrowser() == null) continue;
+                    Log.line("| Removing " + page.getOriginalWebPageUrl());
+                    page.getWebPageBrowser().close(true);
+                }
             }
+
+            if (CLIENT != null) {
+                Log.line("Closing Chromium client...");
+                CLIENT.dispose();
+            }
+
+            if (APP != null) {
+                Log.line("Finalizing and closing app...");
+                APP.dispose();
+            }
+        } catch (Exception exception) {
+            Log.line("Failed to clean up and dispose of app: " + exception);
+            exception.printStackTrace();
         }
 
-        if (CLIENT != null) {
-            Log.line("Closing Chromium client...");
-            CLIENT.dispose();
-        }
-
-        if (APP != null) {
-            Log.line("Finalizing and closing app...");
-            APP.dispose();
-        }
+        Log.line("Program disposed!");
     }
 
+    CefCookieManager getCookieManager() {
+        return this.cookies;
+    }
 
+    CookieExtractor getCookieExtractor() {
+        return this.extractor;
+    }
 
-    private void applyCookies() {
-        String COOKIE_NAME = "Authorization";
-        String COOKIE_VALUE = "Bearer " + this.youtube.getAuth().getRefreshToken();
-
-        CefCookie cookie = new CefCookie(
-                COOKIE_NAME, COOKIE_VALUE, YOUTUBE_DOMAIN, "/", true, false, new Date(), new Date(), true, new Date(System.currentTimeMillis() + Long.MAX_VALUE)
-        );
-
-        this.cookies.setCookie(cookie.domain, cookie);
-        this.cookies.flushStore(null);
+    private void printStackTrace(Throwable throwable, @Nullable String prefix) {
+        Log.line("\t" + (prefix != null ? prefix : "") + throwable.getClass().getName() + ": " + throwable.getMessage());
+        for (StackTraceElement element : throwable.getStackTrace()) {
+            Log.line("\t\tat " + element.getClassName() + "." + element.getMethodName() + "(" + element.getClassName() + ":" + element.getLineNumber() + ")");
+        }
+        Throwable causedBy = throwable.getCause();
+        if (causedBy != null) {
+            this.printStackTrace(causedBy, "Caused By: ");
+        }
     }
 
 }

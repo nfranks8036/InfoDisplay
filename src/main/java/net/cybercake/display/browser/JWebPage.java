@@ -1,6 +1,5 @@
 package net.cybercake.display.browser;
 
-import net.cybercake.display.browser.youtube.YouTubePlayerManager;
 import net.cybercake.display.utils.Log;
 import org.cef.browser.CefBrowser;
 
