@@ -23,6 +23,7 @@ refresh_token.txt
 cache/
 cache
 libs/
+cookies/
 
 ### Eclipse ###
 .apt_generated

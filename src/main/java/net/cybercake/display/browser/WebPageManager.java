@@ -120,7 +120,7 @@ public class WebPageManager {
             exception.printStackTrace();
         }
 
-        Log.line("Program disposed!");
+        Log.line("Program closed!");
     }
 
     CefCookieManager getCookieManager() {

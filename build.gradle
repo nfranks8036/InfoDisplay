@@ -1,3 +1,10 @@
+/**
+ * need:
+ * vlc
+ * yt-dlp
+ * youtube logged-in firefox account
+ */
+
 plugins {
     id 'application'
     id 'idea'
