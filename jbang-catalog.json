@@ -4,7 +4,8 @@
       "file": "src/main/java/net/cybercake/display/Main.java",
       "description": "Run the main class in the project",
       "repositories": [
-        "https://maven.google.com/"
+        "https://maven.google.com/",
+        "https://repo1.maven.org/maven2"
       ],
       "dependencies": [
         "com.google.api-client:google-api-client:2.6.0",

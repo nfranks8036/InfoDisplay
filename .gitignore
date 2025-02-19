@@ -25,6 +25,8 @@ cache
 libs/
 cookies/
 
+cookies/cookies-db.sqlite
+
 ### Eclipse ###
 .apt_generated
 .classpath

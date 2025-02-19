@@ -32,7 +32,7 @@ dependencies {
 //    implementation files('libs/jcef.jar') // Add JCEF JAR
     implementation 'me.friwi:jcefmaven:127.3.1'
     implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
-    implementation 'uk.co.caprica:vlcj:4.8.2'
+    implementation 'uk.co.caprica:vlcj:4.8.3'
 }
 
 application {
