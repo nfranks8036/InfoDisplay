@@ -40,6 +40,7 @@ public class Application {
         } catch (UnsatisfiedLinkError e) { // possible library issue
             if (!UnpackerChecker.shouldTryAgain()) throw e;
 
+            Log.debug("Failed to load libraries for application (" + e.toString() + ")... trying to unpack libraries again if possible!");
             Main.unpackLibraries();
             instance(args);
             return;
