@@ -51,7 +51,7 @@ public class LibUnpacker {
         }
     }
 
-    static void setState(UnpackProgress progress) {
+    public static void setState(UnpackProgress progress) {
         LibUnpacker.progress = progress;
     }
 

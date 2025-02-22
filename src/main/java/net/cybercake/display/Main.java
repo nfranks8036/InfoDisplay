@@ -64,6 +64,7 @@ public class Main {
 
     static void unpackLibraries() {
         try {
+            LibUnpacker.setState(LibUnpacker.UnpackProgress.NOT_STARTED);
             LibUnpacker.unpack();
         } catch (Exception exception) {
             throw new RuntimeException("**** CRITICAL ERROR: FAILED TO EXTRACT REQUIRED LIBRARIES!! ****", exception);
