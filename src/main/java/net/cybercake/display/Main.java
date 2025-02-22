@@ -3,6 +3,7 @@
 
 package net.cybercake.display;
 
+import me.friwi.jcefmaven.impl.util.FileUtils;
 import net.cybercake.display.args.ArgumentReader;
 import net.cybercake.display.libraries.LibUnpacker;
 import net.cybercake.display.utils.Center;
@@ -10,6 +11,7 @@ import net.cybercake.display.utils.Log;
 
 import java.awt.*;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
@@ -68,6 +70,17 @@ public class Main {
             LibUnpacker.unpack();
         } catch (Exception exception) {
             throw new RuntimeException("**** CRITICAL ERROR: FAILED TO EXTRACT REQUIRED LIBRARIES!! ****", exception);
+        }
+    }
+
+    public static void clean() {
+        String[] dirs = new String[]{"build", "cache", "cookies", "libs"};
+        try {
+            for (String dir : dirs) {
+                FileUtils.deleteDir(new File(".", dir));
+            }
+        } catch (Exception exception) {
+            Log.debug("Failed to clean up directories " + Arrays.toString(dirs) + ": " + exception);
         }
     }
 

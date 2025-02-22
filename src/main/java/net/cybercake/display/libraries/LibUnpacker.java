@@ -2,6 +2,7 @@ package net.cybercake.display.libraries;
 
 import com.github.junrar.exception.RarException;
 import me.friwi.jcefmaven.impl.util.FileUtils;
+import net.cybercake.display.Main;
 import net.cybercake.display.utils.Log;
 
 import java.io.File;
@@ -39,7 +40,7 @@ public class LibUnpacker {
         } catch (Exception exception) {
             Log.debug("|- [FAILURE] LibUnpacker failed: " + exception);
             LibUnpacker.setState(UnpackProgress.COMPLETE_FAILURE);
-            LibUnpacker.cleanUp(output);
+            Main.clean();
             if (UnpackerChecker.shouldTryAgain()) {
                 Log.debug("|- [FAILURE] EXTRACTOR WILL TRY AGAIN! Attempt #" + UnpackerChecker.attempts + "/" + UnpackerChecker.MAX_ATTEMPTS);
                 LibUnpacker.setState(UnpackProgress.NOT_STARTED);
@@ -53,15 +54,6 @@ public class LibUnpacker {
 
     public static void setState(UnpackProgress progress) {
         LibUnpacker.progress = progress;
-    }
-
-    static void cleanUp(File directory) {
-        Log.debug("|- [FAILURE] Attempting to clean up " + directory + "...");
-        try {
-            FileUtils.deleteDir(directory);
-        } catch (Exception exception) {
-            Log.debug("|- [FAILURE] Failed to clean up directory " + directory + ": " + exception);
-        }
     }
 
     public enum UnpackProgress {
