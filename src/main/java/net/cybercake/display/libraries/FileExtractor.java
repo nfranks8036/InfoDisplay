@@ -34,7 +34,7 @@ public class FileExtractor {
         try (Archive archive = new Archive(this.file)) {
             FileHeader header;
             while ((header = archive.nextFileHeader()) != null) {
-                String headerName = header.getFileName().trim();
+                String headerName = header.getFileName().trim().replace("\\", "/");
                 File output = new File(destination, headerName);
                 if (header.isDirectory()) {
                     if (!output.exists() && !output.mkdirs()) {
