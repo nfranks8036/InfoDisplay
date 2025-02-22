@@ -34,7 +34,8 @@ public class FileExtractor {
         try (Archive archive = new Archive(this.file)) {
             FileHeader header;
             while ((header = archive.nextFileHeader()) != null) {
-                File output = new File(destination, header.getFileName().trim());
+                String headerName = header.getFileName().trim();
+                File output = new File(destination, headerName);
                 if (header.isDirectory()) {
                     if (!output.exists() && !output.mkdirs()) {
                         throw new IllegalStateException("[CHECK] Failed to create output dir from extraction at: " + output);
@@ -48,7 +49,7 @@ public class FileExtractor {
 
                 try (FileOutputStream fileOutputStream = new FileOutputStream(output)) {
                     archive.extractFile(header, fileOutputStream);
-                    Log.debug("| Extracted " + header.getFileName());
+                    Log.debug("| Extracted " + headerName);
                 }
             }
         }

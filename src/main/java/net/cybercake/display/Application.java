@@ -132,7 +132,6 @@ public class Application {
         } else {
             Log.debug("Maximizing screen...");
             this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            this.frame.setUndecorated(true);
         }
         this.frame.addWindowListener(new WindowAdapter() {
 

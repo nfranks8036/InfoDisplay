@@ -26,6 +26,8 @@ public class LibUnpacker {
             if (!output.exists())
                 throw new IllegalStateException("[VERIFICATION] Libraries weren't created at " + output + " from " + input);
 
+            UnpackerChecker.confirm();
+
             LibUnpacker.setState(UnpackProgress.COMPLETE_SUCCESS);
             Log.debug("|- [SUCCESS] LibUnpacker succeeded!");
             Log.debug("|- Exiting LibUnpacker...");
@@ -33,6 +35,12 @@ public class LibUnpacker {
             Log.debug("|- [FAILURE] LibUnpacker failed: " + exception);
             LibUnpacker.setState(UnpackProgress.COMPLETE_FAILURE);
             LibUnpacker.cleanUp(output);
+            if (UnpackerChecker.shouldTryAgain()) {
+                Log.debug("|- [FAILURE] EXTRACTOR WILL TRY AGAIN! Attempt #" + UnpackerChecker.attempts + "/" + UnpackerChecker.MAX_ATTEMPTS);
+                LibUnpacker.setState(UnpackProgress.NOT_STARTED);
+                unpack();
+                return;
+            }
             Log.debug("|- Exiting LibUnpacker...");
             throw exception;
         }
@@ -59,6 +67,14 @@ public class LibUnpacker {
         COMPLETE_SUCCESS,
 
         COMPLETE_FAILURE;
+    }
+
+    static class ExtractorFailed extends IllegalStateException {
+
+        ExtractorFailed(String message) {
+            super("CHECK FAILED: " + message);
+        }
+
     }
 
 }
