@@ -36,7 +36,7 @@ dependencies {
 }
 
 application {
-    String path = String.valueOf(project.projectDir) + File.separator + "libs" + File.separator + "native"
+    String path = String.valueOf(project.rootDir) + File.separator + "libs" + File.separator + "native"
     applicationDefaultJvmArgs = [
             "-Djava.library.path=" + path,   // Path to native libraries
             "-Djcef.resources.dir=" + path  // Path to JCEF resources
