@@ -41,6 +41,7 @@ public class Application {
             if (!UnpackerChecker.shouldTryAgain()) throw e;
 
             Main.unpackLibraries();
+            instance(args);
             return;
         }
 
