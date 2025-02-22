@@ -51,11 +51,7 @@ public class Main {
                 throw new IllegalStateException("This program cannot run in a headless environment.");
             }
 
-            try {
-                LibUnpacker.unpack();
-            } catch (Exception exception) {
-                throw new RuntimeException("**** CRITICAL ERROR: FAILED TO EXTRACT REQUIRED LIBRARIES!! ****", exception);
-            }
+            unpackLibraries();
 
             Application.instance(reader);
         } catch (Exception exception) {
@@ -63,6 +59,14 @@ public class Main {
             Log.line("AN EXCEPTION OCCURRED: [SEE BELOW FOR DETAILS]");
             exception.printStackTrace();
             System.exit(1); // generic exception
+        }
+    }
+
+    static void unpackLibraries() {
+        try {
+            LibUnpacker.unpack();
+        } catch (Exception exception) {
+            throw new RuntimeException("**** CRITICAL ERROR: FAILED TO EXTRACT REQUIRED LIBRARIES!! ****", exception);
         }
     }
 

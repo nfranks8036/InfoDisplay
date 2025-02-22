@@ -25,7 +25,7 @@ public class UnpackerChecker {
         assertThat("en-US.pak", "locale doesn't exist", false);
     }
 
-    static boolean shouldTryAgain() {
+    public static boolean shouldTryAgain() {
         boolean again = attempts < UnpackerChecker.MAX_ATTEMPTS;
         attempts++;
         return again;

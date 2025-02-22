@@ -4,6 +4,8 @@ import com.jogamp.opengl.GLException;
 import net.cybercake.display.args.ArgumentReader;
 import net.cybercake.display.browser.JWebPage;
 import net.cybercake.display.browser.WebPageManager;
+import net.cybercake.display.libraries.LibUnpacker;
+import net.cybercake.display.libraries.UnpackerChecker;
 import net.cybercake.display.status.StatusIndicatorManager;
 import net.cybercake.display.utils.Log;
 import net.cybercake.display.vlc.JVlcPlayer;
@@ -25,14 +27,22 @@ public class Application {
 
     public static long startTime;
 
-    public static void instance(ArgumentReader args) throws IOException {
-        startTime = System.currentTimeMillis();
-        Application application = new Application(
-                args,
-                new WebPageManager(args),
-                new VlcManager(args),
-                new StatusIndicatorManager(args)
-        );
+    public static void instance(ArgumentReader args) {
+        Application application;
+        try {
+            startTime = System.currentTimeMillis();
+            application = new Application(
+                    args,
+                    new WebPageManager(args),
+                    new VlcManager(args),
+                    new StatusIndicatorManager(args)
+            );
+        } catch (UnsatisfiedLinkError e) { // possible library issue
+            if (!UnpackerChecker.shouldTryAgain()) throw e;
+
+            Main.unpackLibraries();
+            return;
+        }
 
         SwingUtilities.invokeLater(() -> {
             try {
