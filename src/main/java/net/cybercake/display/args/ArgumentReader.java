@@ -5,7 +5,6 @@ import net.cybercake.display.utils.Pair;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @SuppressWarnings({"unused"})
 public class ArgumentReader implements Serializable {
@@ -29,7 +28,7 @@ public class ArgumentReader implements Serializable {
 
     public Argument getArg(String key, boolean required, String... aliases) {
         List<String> argAliases = new ArrayList<>(Collections.singleton(key));
-        if(aliases != null && aliases.length > 0) argAliases.addAll(Arrays.stream(aliases).collect(Collectors.toList()));
+        if(aliases != null && aliases.length > 0) argAliases.addAll(Arrays.stream(aliases).toList());
         for(String arg : argAliases)
             if(isPresent(arg))
                 return this.deserializedArgs.get(arg);
@@ -65,14 +64,12 @@ public class ArgumentReader implements Serializable {
             String key = arg.split("=")[0];
             if(key.startsWith("--")) key = key.substring(2);
             if(key.startsWith("-")) key = key.substring(1);
-            String value = arg.split("=")[1];
-            if(value != null) {
-                if (value.startsWith("\"")) {
-                    StringBuilder newStringBuilder = new StringBuilder();
-                    newStringBuilder.append(value.substring(1));
-                    combinedSingleString.setPair(key, newStringBuilder);
-                    continue;
-                }
+            Object value = arg.split("=")[1];
+            if(value instanceof String stringValue && stringValue.startsWith("\"")) {
+                StringBuilder newStringBuilder = new StringBuilder();
+                newStringBuilder.append(stringValue.substring(1));
+                combinedSingleString.setPair(key, newStringBuilder);
+                continue;
             }
             deserializedArgs.put(key, Argument.of(value));
         }
