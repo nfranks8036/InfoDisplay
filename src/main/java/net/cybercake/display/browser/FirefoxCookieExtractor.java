@@ -12,6 +12,7 @@ import java.nio.file.StandardCopyOption;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import static java.lang.System.getProperty;
 import static java.lang.System.getenv;
@@ -80,10 +81,10 @@ public class FirefoxCookieExtractor extends CookieExtractor {
                     if (expectedCookies == null) {
                         continue;
                     }
-                    files.addAll(Arrays.stream(expectedCookies).toList());
+                    files.addAll(Arrays.stream(expectedCookies).collect(Collectors.toList()));
                 }
             } else {
-                files.addAll(Arrays.stream(forCookies).toList());
+                files.addAll(Arrays.stream(forCookies).collect(Collectors.toList()));
             }
 
 
@@ -128,7 +129,7 @@ public class FirefoxCookieExtractor extends CookieExtractor {
     }
 
     private List<String> finalize(List<String> list) {
-        return list.stream().map(s -> s.replace("**", File.separator)).toList();
+        return list.stream().map(s -> s.replace("**", File.separator)).collect(Collectors.toList());
     }
 
     private List<CefCookie> collectCookies() {

@@ -20,8 +20,8 @@ group = 'net.cybercake.display'
 version = '1.0.0'
 mainClassName = "net.cybercake.display.Main"
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
