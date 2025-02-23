@@ -31,12 +31,13 @@ public class WebPageManager {
     public WebPageManager(ArgumentReader args) {
         this.webPages = new ArrayList<>();
 
-        CefApp.startup(new String[]{
+        String[] cefArgs = new String[]{
                 "--enable-features=UseModernMediaControls",
                 "--autoplay-policy=no-user-gesture-required",
                 "--enable-media-stream"
-        });
-        APP = CefApp.getInstance();
+        };
+        CefApp.startup(cefArgs);
+        APP = CefApp.getInstance(cefArgs);
         CefSettings settings = new CefSettings();
         settings.cache_path = new File(".").getAbsolutePath() + File.separator + "cache";
         settings.windowless_rendering_enabled = false;
