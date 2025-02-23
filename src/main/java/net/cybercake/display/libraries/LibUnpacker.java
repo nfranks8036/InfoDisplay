@@ -56,7 +56,7 @@ public class LibUnpacker {
             //            "-Djcef.resources.dir=libs/native"  // Path to JCEF resources
 //            Log.debug("|- Set system property to point to: " + System.getProperty("jcef.resources.dir"));
 
-            Process process = new ProcessBuilder("chmox", "+x", "/home/fra-100/InfoDisplay/libs/jcef/*").start();
+            Process process = new ProcessBuilder("chmod", "+x", "/home/fra-100/InfoDisplay/libs/jcef/*").start();
             process.destroy();
 
             LibUnpacker.setState(UnpackProgress.COMPLETE_SUCCESS);
