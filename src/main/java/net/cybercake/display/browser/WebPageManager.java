@@ -32,9 +32,7 @@ public class WebPageManager {
         this.webPages = new ArrayList<>();
 
         String[] cefArgs = new String[]{
-                "--enable-features=UseModernMediaControls",
-                "--autoplay-policy=no-user-gesture-required",
-                "--enable-media-stream"
+                "--in-process-gpu"
         };
         APP = CefApp.getInstance(cefArgs);
         CefSettings settings = new CefSettings();

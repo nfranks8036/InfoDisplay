@@ -34,7 +34,7 @@ public class Main {
         try {
             ArgumentReader reader = new ArgumentReader(args);
 
-            if (!CefApp.startup(new String[]{})) {
+            if (!CefApp.startup(new String[]{"--in-process-gpu"})) {
                 throw new RuntimeException("Failed to startup JCEF");
             }
 
