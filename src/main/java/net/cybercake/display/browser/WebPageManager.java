@@ -36,7 +36,6 @@ public class WebPageManager {
                 "--autoplay-policy=no-user-gesture-required",
                 "--enable-media-stream"
         };
-        CefApp.startup(cefArgs);
         APP = CefApp.getInstance(cefArgs);
         CefSettings settings = new CefSettings();
         settings.cache_path = new File(".").getAbsolutePath() + File.separator + "cache";

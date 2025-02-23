@@ -8,6 +8,7 @@ import net.cybercake.display.args.ArgumentReader;
 import net.cybercake.display.libraries.LibUnpacker;
 import net.cybercake.display.utils.Center;
 import net.cybercake.display.utils.Log;
+import org.cef.CefApp;
 
 import java.awt.*;
 import java.io.File;
@@ -32,6 +33,10 @@ public class Main {
         startTime = System.currentTimeMillis();
         try {
             ArgumentReader reader = new ArgumentReader(args);
+
+            if (!CefApp.startup(new String[]{})) {
+                throw new RuntimeException("Failed to startup JCEF");
+            }
 
             if(reader.getArg("runtimeArgs").getAsBoolean()) {
                 Scanner scanner = new Scanner(System.in);
