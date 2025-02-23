@@ -24,7 +24,6 @@ public class CommandIndicator extends Indicator {
         try {
             Process process = new ProcessBuilder(this.getCommand()).start();
             process.waitFor(5, TimeUnit.SECONDS);
-            process.destroy();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String result = reader.readLine();
             if (result.contains("=")) {
@@ -36,6 +35,9 @@ public class CommandIndicator extends Indicator {
             }
 
             this.newResult(result);
+
+            process.destroy();
+            reader.close();
         } catch (Exception exception) {
             if (exception.getMessage().contains("error=2")) {
                 this.newResult("???");
