@@ -41,7 +41,7 @@ public class LibUnpacker {
             LibUnpacker.setState(UnpackProgress.IN_PROGRESS);
             for (File input : inputs) {
                 FileExtractor extractor = new FileExtractor(input);
-                extractor.extract(output);
+                extractor.extract(output, inputs.length > 1);
             }
 
             if (!output.exists())

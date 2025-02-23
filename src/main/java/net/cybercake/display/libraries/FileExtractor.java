@@ -17,13 +17,13 @@ public class FileExtractor {
         this.file = file;
     }
 
-    public void extract(File destination) throws RarException, IOException {
+    public void extract(File destination, boolean part) throws RarException, IOException {
         Log.debug("|- Extracting archive at " + this.file + "...");
         if (!destination.exists()) {
             if (!destination.getAbsoluteFile().mkdirs())
                 throw new DestinationAlreadyExistsException("[CHECK] Failed to create destination dir for libraries: " + destination);
             Log.debug("|- Created destination folder at " + destination);
-        } else {
+        } else if (!part) {
             Log.debug("|- Extraction deemed unnecessary, " + destination + " already exists!");
             return;
         }
