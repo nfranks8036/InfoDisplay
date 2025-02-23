@@ -130,10 +130,6 @@ public class Application {
         this.status.addFromCmd("ARM Allocated Memory", "vcgencmd get_mem arm");
         this.status.addFromCmd("Memory Usage", "free -m | awk '/Mem:/ {print $3}'").peek((s) -> s + "MB");
         this.status.addFromCmd("Memory Total", "free -m | awk '/Mem:/ {print $2}'").peek((s) -> s + "MB");
-        this.status.addFromCmd("Display", "vcgencmd get_lcd_info").peek((s) -> {
-            String[] items = s.split(" ");
-            return items[0] + "x" + items[1] + " (color: " + items[2] + "; refresh-rate=" + items[3] + ")";
-        });
 
         this.frame.getContentPane().add(this.root, BorderLayout.CENTER);
         this.frame.pack();
