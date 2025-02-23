@@ -34,10 +34,6 @@ public class Main {
         try {
             ArgumentReader reader = new ArgumentReader(args);
 
-            if (!CefApp.startup(new String[]{"--in-process-gpu"})) {
-                throw new RuntimeException("Failed to startup JCEF");
-            }
-
             if(reader.getArg("runtimeArgs").getAsBoolean()) {
                 Scanner scanner = new Scanner(System.in);
                 Log.line("Enter your runtime arguments: ");

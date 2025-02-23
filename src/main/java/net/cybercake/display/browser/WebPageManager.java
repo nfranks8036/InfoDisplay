@@ -34,6 +34,9 @@ public class WebPageManager {
         String[] cefArgs = new String[]{
                 "--in-process-gpu"
         };
+        if (!CefApp.startup(cefArgs)) {
+            throw new RuntimeException("Failed to startup JCEF");
+        }
         APP = CefApp.getInstance(cefArgs);
         CefSettings settings = new CefSettings();
         settings.cache_path = new File(".").getAbsolutePath() + File.separator + "cache";
