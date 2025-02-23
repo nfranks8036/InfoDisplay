@@ -52,7 +52,6 @@ public class LibUnpacker {
             //             "-Djava.library.path=libs/native",   // Path to native libraries
             //            "-Djcef.resources.dir=libs/native"  // Path to JCEF resources
 //            Log.debug("|- Set system property to point to: " + System.getProperty("jcef.resources.dir"));
-            System.loadLibrary("libjcef");
 
             LibUnpacker.setState(UnpackProgress.COMPLETE_SUCCESS);
             Log.debug("|- [SUCCESS] LibUnpacker succeeded!");
@@ -60,7 +59,7 @@ public class LibUnpacker {
         } catch (Exception exception) {
             Log.debug("|- [FAILURE] LibUnpacker failed: " + exception);
             LibUnpacker.setState(UnpackProgress.COMPLETE_FAILURE);
-            Main.clean();
+//            Main.clean();
             if (UnpackerChecker.shouldTryAgain()) {
                 Log.debug("|- [FAILURE] EXTRACTOR WILL TRY AGAIN! Attempt #" + UnpackerChecker.attempts + "/" + UnpackerChecker.MAX_ATTEMPTS);
                 LibUnpacker.setState(UnpackProgress.NOT_STARTED);
