@@ -4,6 +4,7 @@ import com.github.junrar.exception.RarException;
 import me.friwi.jcefmaven.impl.util.FileUtils;
 import net.cybercake.display.Main;
 import net.cybercake.display.utils.Log;
+import net.cybercake.display.utils.OS;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,15 +16,14 @@ public class LibUnpacker {
     private static UnpackProgress progress = UnpackProgress.NOT_STARTED;
 
     public static void unpack() throws Exception {
-        String os = System.getProperty("os.name").toLowerCase();
         String[] library = new String[2];
-        if (os.contains("linux")) {
+        if (OS.isLinux()) {
             library[0] = "libs-linux-pt1.rar";
             library[1] = "libs-linux-pt2.rar";
-        } else if (os.contains("win")) {
+        } else if (OS.isWindows()) {
             library[0] = "libs-win.rar";
         } else {
-            throw new IllegalStateException("Unsupported OS: " + os);
+            throw new IllegalStateException("Unsupported OS: " + System.getProperty("os.name"));
         }
 
         File[] inputs = Arrays.stream(library)

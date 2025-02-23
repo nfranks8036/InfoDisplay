@@ -1,5 +1,7 @@
 package net.cybercake.display.libraries;
 
+import net.cybercake.display.utils.OS;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ public class UnpackerChecker {
 
         assertThat("~jcef", "directory doesn't exist", true);
 
-        assertThat("jcef.dll", "required dll doesn't exist", false);
+        assertThat("resources.pak", "required file doesn't exist", false);
 
         assertThat("locales",  "directory doesn't exist", true);
 
