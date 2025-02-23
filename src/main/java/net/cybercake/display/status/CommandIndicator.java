@@ -25,12 +25,11 @@ public class CommandIndicator extends Indicator {
     @Override
     public void update() {
         try {
-            Log.debug("Executing... " + Arrays.toString(this.getCommand()));
             Process process = Runtime.getRuntime().exec(this.getCommand());
             process.waitFor(5, TimeUnit.SECONDS);
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String result = reader.readLine();
-            Log.debug("Result:" + result);
+            Log.debug("[CMD RESULT] (" + String.join(" ", getCommand()) + ") -> " + result);
             if (result == null) {
                 throw new NullPointerException("No result given from command '" + String.join(" ", this.getCommand()) + "'");
             }
