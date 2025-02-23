@@ -1,7 +1,10 @@
 package net.cybercake.display.status;
 
+import net.cybercake.display.utils.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -22,10 +25,12 @@ public class CommandIndicator extends Indicator {
     @Override
     public void update() {
         try {
+            Log.debug("Executing... " + Arrays.toString(this.getCommand()));
             Process process = new ProcessBuilder(this.getCommand()).start();
             process.waitFor(5, TimeUnit.SECONDS);
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String result = reader.readLine();
+            Log.debug("Result=" + result);
             if (result.contains("=")) {
                 result = result.split("=")[1];
             }

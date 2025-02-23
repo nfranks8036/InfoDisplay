@@ -61,7 +61,7 @@ public class LibUnpacker {
 
             LibUnpacker.setState(UnpackProgress.COMPLETE_SUCCESS);
             Log.debug("|- [SUCCESS] LibUnpacker succeeded!");
-            Log.debug("|- Exiting LibUnpacker...");
+            Log.debug("|- [SUCCESS] Exiting LibUnpacker...");
         } catch (Exception exception) {
             Log.debug("|- [FAILURE] LibUnpacker failed: " + exception);
             LibUnpacker.setState(UnpackProgress.COMPLETE_FAILURE);
@@ -72,7 +72,7 @@ public class LibUnpacker {
                 unpack();
                 return;
             }
-            Log.debug("|- Exiting LibUnpacker...");
+            Log.debug("|- [FAILURE] Exiting LibUnpacker...");
             throw exception;
         }
     }
@@ -94,7 +94,7 @@ public class LibUnpacker {
     static class ExtractorFailed extends IllegalStateException {
 
         ExtractorFailed(String message) {
-            super("CHECK FAILED: " + message);
+            super("lCHECK FAILED: " + message);
         }
 
     }
