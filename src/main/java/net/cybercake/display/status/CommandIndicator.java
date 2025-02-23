@@ -31,6 +31,10 @@ public class CommandIndicator extends Indicator {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String result = reader.readLine();
             Log.debug("Result=" + result);
+            if (result == null) {
+                throw new IllegalStateException("No result given from command '" + String.join(" ", this.getCommand()) + "'");
+            }
+
             if (result.contains("=")) {
                 result = result.split("=")[1];
             }
