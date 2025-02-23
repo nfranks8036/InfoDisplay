@@ -8,6 +8,7 @@ import net.cybercake.display.libraries.LibUnpacker;
 import net.cybercake.display.libraries.UnpackerChecker;
 import net.cybercake.display.status.StatusIndicatorManager;
 import net.cybercake.display.utils.Log;
+import net.cybercake.display.utils.TimeUtils;
 import net.cybercake.display.vlc.JVlcPlayer;
 import net.cybercake.display.vlc.VlcManager;
 
@@ -122,14 +123,14 @@ public class Application {
 
         this.status.implement(this.frame);
         this.status.addFromSupp(() -> "DEBUG INFORMATION:");
-        this.status.addFromSupp(() -> "Uptime: " + ((System.currentTimeMillis() - Application.startTime) / 1000) + "s");
+        this.status.addFromSupp(() -> "Uptime: " + TimeUtils.getFormattedDuration(((System.currentTimeMillis() - Application.startTime) / 1000)));
         this.status.addFromSupp(() -> "OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " (" + System.getProperty("os.arch") + ") as " + System.getProperty("user.name"));
         this.status.addFromCmd("Temperature", "vcgencmd measure_temp").peek((s) -> s.replace("'C", "°C"));
-        this.status.addFromCmd("CPU Usage", "sudo top -bn1 | sudo grep \"Cpu(s)\" | sudo awk '{print 100 - $8}'").peek((s) -> s + "%");
+        this.status.addFromCmd("CPU Usage", "top -bn1 | grep \"Cpu(s)\" | awk '{print 100 - $8}'").peek((s) -> s + "%");
         this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> s + " MHz");
         this.status.addFromCmd("ARM Allocated Memory", "vcgencmd get_mem arm");
-        this.status.addFromCmd("Memory Usage", "sudo free -m | sudo awk '/Mem:/ {print $3}'").peek((s) -> s + "MB");
-        this.status.addFromCmd("Memory Total", "sudo free -m | sudo awk '/Mem:/ {print $2}'").peek((s) -> s + "MB");
+        this.status.addFromCmd("Memory Usage", "free -m | awk '/Mem:/ {print $3}'").peek((s) -> s + "MB");
+        this.status.addFromCmd("Memory Total", "free -m | awk '/Mem:/ {print $2}'").peek((s) -> s + "MB");
 
         this.frame.getContentPane().add(this.root, BorderLayout.CENTER);
         this.frame.pack();
