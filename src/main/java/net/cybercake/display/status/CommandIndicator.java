@@ -48,7 +48,7 @@ public class CommandIndicator extends Indicator {
             process.destroy();
             reader.close();
         } catch (Exception exception) {
-            if (exception.getMessage().contains("error=2")) {
+            if (exception.getMessage().contains("error=2") || exception.getClass() == NullPointerException.class) {
                 this.newResult("???");
                 return;
             }
