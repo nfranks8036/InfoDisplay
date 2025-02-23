@@ -20,6 +20,9 @@ group = 'net.cybercake.display'
 version = '1.0.0'
 mainClassName = "net.cybercake.display.Main"
 
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
 repositories {
     mavenCentral()
     google()
@@ -30,7 +33,7 @@ dependencies {
     implementation 'com.github.junrar:junrar:7.5.5'
 
 //    implementation files('libs/jcef.jar') // Add JCEF JAR
-    implementation 'me.friwi:jcefmaven:127.3.1'
+    implementation 'me.friwi:jcefmaven:132.3.1'
     implementation 'org.xerial:sqlite-jdbc:3.41.2.2'
     implementation 'uk.co.caprica:vlcj:4.6.0'
 }
