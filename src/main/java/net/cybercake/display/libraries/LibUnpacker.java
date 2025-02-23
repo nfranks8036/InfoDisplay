@@ -6,10 +6,13 @@ import net.cybercake.display.Main;
 import net.cybercake.display.utils.Log;
 import net.cybercake.display.utils.OS;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class LibUnpacker {
 
@@ -52,6 +55,9 @@ public class LibUnpacker {
             //             "-Djava.library.path=libs/native",   // Path to native libraries
             //            "-Djcef.resources.dir=libs/native"  // Path to JCEF resources
 //            Log.debug("|- Set system property to point to: " + System.getProperty("jcef.resources.dir"));
+
+            Process process = new ProcessBuilder("chmox", "+x", "/home/fra-100/InfoDisplay/libs/jcef/*").start();
+            process.destroy();
 
             LibUnpacker.setState(UnpackProgress.COMPLETE_SUCCESS);
             Log.debug("|- [SUCCESS] LibUnpacker succeeded!");
