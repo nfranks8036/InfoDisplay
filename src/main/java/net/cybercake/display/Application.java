@@ -129,8 +129,8 @@ public class Application {
         this.status.addFromCmd("CPU Usage", "/bin/sh -c top -bn1 | grep \"Cpu(s)\" | awk '{print 100 - $8}'").peek((s) -> s + "%");
         this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> s + " MHz");
         this.status.addFromCmd("ARM Allocated Memory", "vcgencmd get_mem arm");
-        this.status.addFromCmd("Memory Usage", "/bin/sh -c free -m | awk '/Mem:/'").peek((s) -> s.split("\t")[2] + "MB");
-        this.status.addFromCmd("Memory Total", "/bin/sh -c free -m | awk '/Mem:/'").peek((s) -> s.split("\t")[1] + "MB");
+        this.status.addFromCmd("Memory Usage", "/bin/sh -c \"free -m | awk '/Mem:/'\"").peek((s) -> s.split("\t")[2] + "MB");
+        this.status.addFromCmd("Memory Total", "/bin/sh -c \"free -m | awk '/Mem:/'\"").peek((s) -> s.split("\t")[1] + "MB");
 
         this.frame.getContentPane().add(this.root, BorderLayout.CENTER);
         this.frame.pack();
