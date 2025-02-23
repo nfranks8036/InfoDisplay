@@ -7,13 +7,31 @@ import net.cybercake.display.utils.Log;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class LibUnpacker {
 
     private static UnpackProgress progress = UnpackProgress.NOT_STARTED;
 
     public static void unpack() throws Exception {
-        File input = new File(new File(".").getParentFile(), "libs.rar");
+        String os = System.getProperty("os.name").toLowerCase();
+        String[] library = new String[2];
+        if (os.contains("linux")) {
+            library[0] = "libs-linux-pt1.rar";
+            library[1] = "libs-linux-pt2.rar";
+        } else if (os.contains("win")) {
+            library[0] = "libs-win.rar";
+        } else {
+            throw new IllegalStateException("Unsupported OS: " + os);
+        }
+
+        File[] inputs = Arrays.stream(library)
+                .filter(Objects::nonNull)
+                .map(s ->
+                        new File(new File(".").getParentFile(), s)
+                )
+                .toArray(File[]::new);
         File output = new File(new File(".").getParentFile(), "libs");
 
         try {
@@ -21,11 +39,13 @@ public class LibUnpacker {
                 throw new IllegalArgumentException("Called LibUnpacker::unpack, expected state " + UnpackProgress.NOT_STARTED + ", got " + progress);
 
             LibUnpacker.setState(UnpackProgress.IN_PROGRESS);
-            FileExtractor extractor = new FileExtractor(input);
-            extractor.extract(output);
+            for (File input : inputs) {
+                FileExtractor extractor = new FileExtractor(input);
+                extractor.extract(output);
+            }
 
             if (!output.exists())
-                throw new IllegalStateException("[VERIFICATION] Libraries weren't created at " + output + " from " + input);
+                throw new IllegalStateException("[VERIFICATION] Libraries weren't created at " + output + " from " + Arrays.toString(inputs));
 
             UnpackerChecker.confirm();
 

@@ -1,10 +1,12 @@
 package net.cybercake.display.libraries;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UnpackerChecker {
 
-    static final int MAX_ATTEMPTS = 3;
+    static final int MAX_ATTEMPTS = 1;
     static int attempts = 0;
 
     private static File file;
@@ -12,11 +14,9 @@ public class UnpackerChecker {
     static void confirm() {
         file = new File(".");
 
-        assertThat("libs", "directory doesn't exist", true);
+        assertThat("~libs", "directory doesn't exist", true);
 
-        assertThat("jcef.jar", "directory doesn't exist", false);
-
-        assertThat("native", "directory doesn't exist", true);
+        assertThat("~jcef", "directory doesn't exist", true);
 
         assertThat("jcef.dll", "required dll doesn't exist", false);
 
@@ -32,9 +32,10 @@ public class UnpackerChecker {
     }
 
     private static void assertThat(String name, String msg,  boolean isDirectory) {
-        if (isDirectory && !name.equalsIgnoreCase("libs")) {
+        if (isDirectory && !name.contains("~")) {
             file = file.getParentFile();
         }
+        name = name.replace("~", "");
         file = new File(file, name);
         msg = msg + ": " + file;
         if (!file.exists() || (isDirectory && !file.isDirectory())) {
