@@ -32,7 +32,7 @@ public class CommandIndicator extends Indicator {
             String result = reader.readLine();
             Log.debug("Result=" + result);
             if (result == null) {
-                throw new IllegalStateException("No result given from command '" + String.join(" ", this.getCommand()) + "'");
+                throw new NullPointerException("No result given from command '" + String.join(" ", this.getCommand()) + "'");
             }
 
             if (result.contains("=")) {
@@ -53,7 +53,7 @@ public class CommandIndicator extends Indicator {
                 return;
             }
 
-            IllegalStateException e = new IllegalStateException("Unable to execute command '" + String.join(" ", this.getCommand()) + "': " + exception, exception);
+            IllegalStateException e = new IllegalStateException("Unable to execute command '" + String.join(" ", this.getCommand()) + "'", exception);
             e.printStackTrace();
 
             this.errorResult();
