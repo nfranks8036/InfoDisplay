@@ -32,7 +32,6 @@ public class WebPageManager {
         this.webPages = new ArrayList<>();
 
         String[] cefArgs = new String[]{
-                "--in-process-gpu"
         };
         if (!CefApp.startup(cefArgs)) {
             throw new RuntimeException("Failed to startup JCEF");
