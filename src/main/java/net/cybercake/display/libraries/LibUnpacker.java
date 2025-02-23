@@ -51,8 +51,6 @@ public class LibUnpacker {
 
             //             "-Djava.library.path=libs/native",   // Path to native libraries
             //            "-Djcef.resources.dir=libs/native"  // Path to JCEF resources
-            System.setProperty("java.library.path", "libs" + File.separator + "native");
-            System.setProperty("jcef.resources.dir", "libs" + File.separator + "native");
 //            Log.debug("|- Set system property to point to: " + System.getProperty("jcef.resources.dir"));
             System.loadLibrary("libcef");
 
