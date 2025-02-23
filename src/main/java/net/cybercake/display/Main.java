@@ -34,7 +34,7 @@ public class Main {
         try {
             ArgumentReader reader = new ArgumentReader(args);
 
-            if (!CefApp.startup(new String[]{"--no-arm"})) {
+            if (!CefApp.startup(new String[]{})) {
                 throw new RuntimeException("Failed to startup JCEF");
             }
 
