@@ -37,12 +37,10 @@ public class WebPageManager {
                 "--enable-media-stream"
         });
         CefSettings settings = new CefSettings();
-        settings.cache_path = new File(".").getAbsolutePath() + File.separator + "cache" + File.separator + "nonroot";
-        settings.root_cache_path = new File(".").getAbsolutePath() + File.separator + "cache";
+        settings.cache_path = new File(".").getAbsolutePath() + File.separator + "cache";
         settings.windowless_rendering_enabled = false;
         settings.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:134.0) Gecko/20100101 Firefox/134.0";
-        Log.line("Root cache for Chromium browser: " + settings.root_cache_path);
-        Log.line("Utilizing " + APP.getVersion());
+        Log.debug("Utilizing " + APP.getVersion());
         APP.setSettings(settings);
 
         CLIENT = APP.createClient();
