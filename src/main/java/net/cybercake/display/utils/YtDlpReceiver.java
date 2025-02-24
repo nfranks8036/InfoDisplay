@@ -26,7 +26,7 @@ public class YtDlpReceiver {
                 throw new NullPointerException("No streamed link found");
             }
 
-            Log.line("YtDlpReceiver.getRawLinkFor(" + url + "): " + found);
+            Log.debug("YtDlpReceiver.getRawLinkFor(" + url + "): " + found);
 
             return found;
 

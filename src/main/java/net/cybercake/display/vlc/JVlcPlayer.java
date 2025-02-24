@@ -20,6 +20,8 @@ public class JVlcPlayer extends JPanel {
     protected JVlcPlayer(VlcManager manager, String url) {
         super(new BorderLayout());
 
+        System.setProperty("sun.java2d.opengl", "true");
+
         this.originalUrl = url;
         this.ytConvert = false;
         if (this.originalUrl.contains("yt:")) {
