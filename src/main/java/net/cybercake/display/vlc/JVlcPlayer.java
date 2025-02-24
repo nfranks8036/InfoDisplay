@@ -13,7 +13,8 @@ public class JVlcPlayer extends JPanel {
     private static final String[] vlcArgs = new String[]{
             "--no-ts-trust-pcr",
             "--ts-seek-percent",
-            "--no-duplicate-seek"
+            "--no-duplicate-seek",
+            "--hls-live-caching", "3000"
     };
 
     private final VlcManager vlcManager;
