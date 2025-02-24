@@ -7,8 +7,8 @@ import java.util.StringJoiner;
 public class YtDlpReceiver {
 
     public static String getRawLinkFor(String url) {
+        String[] command = new String[]{"yt-dlp", url, "-g"};
         try {
-            String[] command = new String[]{"yt-dlp", url, "-f", "best", "-g", "--cookies-from-browser", "firefox"};
             Process process = new ProcessBuilder(command).start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -23,7 +23,7 @@ public class YtDlpReceiver {
 
             String found = returned.toString();
             if (found.trim().isEmpty()) {
-                throw new NullPointerException("No streamed link found by '" + String.join(" ", command) + "'");
+                throw new NullPointerException("No streamed link found");
             }
 
             Log.line("YtDlpReceiver.getRawLinkFor(" + url + "): " + found);
@@ -31,7 +31,8 @@ public class YtDlpReceiver {
             return found;
 
         } catch (Exception exception) {
-            throw new IllegalStateException("Unable to get raw link from " + url + ": " + exception, exception);
+            throw new IllegalStateException(String.join(" ", command) + " resulted in non-zero exit status\n" +
+                    "Unable to get raw link from " + url + ": " + exception, exception);
         }
     }
 
