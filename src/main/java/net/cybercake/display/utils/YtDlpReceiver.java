@@ -8,7 +8,7 @@ public class YtDlpReceiver {
 
     public static String getRawLinkFor(String url) {
         try {
-            Process process = new ProcessBuilder("yt-dlp", url, "-f", "best", "-g").start();
+            Process process = new ProcessBuilder("yt-dlp", url, "-f", "best", "-g", "--cookies-from-browser", "firefox").start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
             StringJoiner returned = new StringJoiner(" ");
