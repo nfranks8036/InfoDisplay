@@ -52,8 +52,10 @@ public class LoadingWindow {
             return;
         }
         try {
-            this.clazz.setText(clazz);
-            this.log.setText(text);
+            SwingUtilities.invokeLater(() -> {
+                this.clazz.setText(clazz);
+                this.log.setText(text);
+            });
             Thread.sleep(50);
         } catch (Exception exception) {
             exception.printStackTrace();
