@@ -17,7 +17,6 @@ public class YtDlpReceiver {
             while ((line = reader.readLine()) != null) {
                 if (!line.contains("https"))
                     continue;
-                Log.line("yt-dlp searched " + url + " and found: " + line);
 
                 returned.add(line);
             }
@@ -26,6 +25,8 @@ public class YtDlpReceiver {
             if (found.trim().isEmpty()) {
                 throw new NullPointerException("No streamed link found by '" + String.join(" ", command) + "'");
             }
+
+            Log.line("YtDlpReceiver.getRawLinkFor(" + url + "): " + found);
 
             return found;
 
