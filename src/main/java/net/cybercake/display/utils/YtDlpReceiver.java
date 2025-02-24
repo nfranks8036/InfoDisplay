@@ -8,7 +8,8 @@ public class YtDlpReceiver {
 
     public static String getRawLinkFor(String url) {
         try {
-            Process process = new ProcessBuilder("yt-dlp", url, "-f", "best", "-g", "--cookies-from-browser", "firefox").start();
+            String[] command = new String[]{"yt-dlp", url, "-f", "best", "-g", "--cookies-from-browser", "firefox"};
+            Process process = new ProcessBuilder(command).start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
             StringJoiner returned = new StringJoiner(" ");
@@ -21,7 +22,12 @@ public class YtDlpReceiver {
                 returned.add(line);
             }
 
-            return returned.toString();
+            String found = returned.toString();
+            if (found.trim().isEmpty()) {
+                throw new NullPointerException("No streamed link found by '" + String.join(" ", command) + "'");
+            }
+
+            return found;
 
         } catch (Exception exception) {
             throw new IllegalStateException("Unable to get raw link from " + url + ": " + exception, exception);
