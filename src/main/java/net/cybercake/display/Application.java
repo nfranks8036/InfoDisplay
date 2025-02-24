@@ -46,14 +46,17 @@ public class Application {
             return;
         }
 
+        Log.debug("Application#start()");
         SwingUtilities.invokeLater(() -> {
             try {
                 application.start();
             } catch (GLException glException) {
+                Main.loading.dispose();
                 glException.printStackTrace();
                 Toolkit.getDefaultToolkit().beep();
                 JOptionPane.showMessageDialog(null, "Failed to initialize OpenGL components:\n\n" + paginate(glException), "Info Display - OpenGL Error", JOptionPane.ERROR_MESSAGE);
             } catch (Exception exception) {
+                Main.loading.dispose();
                 exception.printStackTrace();
                 Toolkit.getDefaultToolkit().beep();
                 JOptionPane.showMessageDialog(null, "A fatal exception has occurred in the program:\n\n" + paginate(exception), "Info Display - Fatal Error", JOptionPane.ERROR_MESSAGE);

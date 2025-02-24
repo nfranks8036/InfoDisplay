@@ -1,5 +1,6 @@
 package net.cybercake.display.boot;
 
+import net.cybercake.display.Application;
 import net.cybercake.display.browser.JavaScriptCode;
 
 import javax.swing.*;
@@ -13,6 +14,8 @@ public class LoadingWindow {
 
     private final JLabel clazz;
     private final JLabel log;
+
+    private boolean hold;
 
     public LoadingWindow() {
         this.frame = new JFrame("Info Display | Loading...");
@@ -28,13 +31,13 @@ public class LoadingWindow {
         this.panel.setSize(900, 100);
 
         this.clazz = new JLabel("Loading...");
-        this.clazz.setFont(new Font("Consolas", Font.ITALIC, 10));
+        this.clazz.setFont(new Font("Consolas", Font.ITALIC, 15));
         this.clazz.setForeground(Color.LIGHT_GRAY);
         this.clazz.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.panel.add(this.clazz);
 
         this.log = new JLabel("Loading...");
-        this.log.setFont(new Font("Consolas", Font.ITALIC, 20));
+        this.log.setFont(new Font("Consolas", Font.ITALIC, 25));
         this.log.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.log.setForeground(Color.WHITE);
         this.panel.add(this.log);
@@ -51,9 +54,17 @@ public class LoadingWindow {
         if (!this.frame.isActive()) {
             return;
         }
+        if (hold) {
+            return;
+        }
+
         try {
             this.clazz.setText(clazz);
             this.log.setText(text);
+            if (text.equalsIgnoreCase("Application#start()")) {
+                this.ofLog(Application.class.getCanonicalName(), "Booting main window...");
+                hold = true;
+            }
             Thread.sleep(50);
         } catch (Exception exception) {
             exception.printStackTrace();
