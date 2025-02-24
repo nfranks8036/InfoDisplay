@@ -21,7 +21,6 @@ public class LoadingWindow {
         this.frame.setSize(900, 100);
 
         this.frame.setBackground(Color.BLACK);
-        this.frame.setLocationRelativeTo(null);
 
         this.panel = new JPanel(new GridLayout(2, 1));
         this.panel.setBackground(Color.BLACK);
@@ -52,10 +51,8 @@ public class LoadingWindow {
             return;
         }
         try {
-            SwingUtilities.invokeLater(() -> {
-                this.clazz.setText(clazz);
-                this.log.setText(text);
-            });
+            this.clazz.setText(clazz);
+            this.log.setText(text);
             Thread.sleep(50);
         } catch (Exception exception) {
             exception.printStackTrace();
