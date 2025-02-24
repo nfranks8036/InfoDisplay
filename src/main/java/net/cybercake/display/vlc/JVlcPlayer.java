@@ -10,11 +10,7 @@ import java.awt.*;
 
 public class JVlcPlayer extends JPanel {
 
-    private static final String[] vlcArgs = new String[]{
-            "--no-ts-trust-pcr",
-            "--ts-seek-percent",
-            "--no-x264"
-    };
+    private static final String[] vlcArgs = new String[]{};
 
     private final VlcManager vlcManager;
 
@@ -23,8 +19,6 @@ public class JVlcPlayer extends JPanel {
 
     protected JVlcPlayer(VlcManager manager, String url) {
         super(new BorderLayout());
-
-        System.setProperty("LIBGL_ALWAYS_SOFTWARE", "1");
 
         this.originalUrl = url;
         this.ytConvert = false;
@@ -40,13 +34,7 @@ public class JVlcPlayer extends JPanel {
                 this.originalUrl = YtDlpReceiver.getRawLinkFor(this.originalUrl);
             }
 
-            EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent(
-                    new MediaPlayerFactory(
-                            null,
-                            vlcArgs
-                    ),
-                    null, null, null, null
-            );
+            EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
             this.add(mediaPlayerComponent, BorderLayout.CENTER);
 
             EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
