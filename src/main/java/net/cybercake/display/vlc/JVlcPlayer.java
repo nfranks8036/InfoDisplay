@@ -13,7 +13,7 @@ public class JVlcPlayer extends JPanel {
     private static final String[] vlcArgs = new String[]{
             "--no-ts-trust-pcr",
             "--ts-seek-percent",
-            "--codec=h264"
+            "--no-x264"
     };
 
     private final VlcManager vlcManager;
