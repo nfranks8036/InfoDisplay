@@ -160,6 +160,7 @@ public class Application {
         Log.debug("Making screen visible... program took " + (System.currentTimeMillis() - Main.startTime) + "ms to boot!");
         SwingUtilities.invokeLater(() -> {
             this.frame.setVisible(true);
+            Main.loading.dispose();
         });
     }
 

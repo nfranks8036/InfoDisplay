@@ -31,7 +31,14 @@ public class LoadingWindow {
     }
 
     public void ofLog(String text) {
+        if (!this.frame.isActive()) {
+            return;
+        }
         this.label.setText(text);
+    }
+
+    public void dispose() {
+        this.frame.dispose();
     }
 
 }
