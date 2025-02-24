@@ -43,6 +43,7 @@ public class JVlcPlayer extends JPanel {
 
             EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent(
                     new MediaPlayerFactory(
+                            null,
                             vlcArgs
                     ),
                     null, null, null, null
