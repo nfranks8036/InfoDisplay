@@ -11,10 +11,7 @@ import java.awt.*;
 public class JVlcPlayer extends JPanel {
 
     private static final String[] vlcArgs = new String[]{
-            "--avcodec-hw=none",
-            "--no-video-title-show",
-            "--vout", "x11",
-            "--ts-demux", "ffmpeg"
+            
     };
 
     private final VlcManager vlcManager;
