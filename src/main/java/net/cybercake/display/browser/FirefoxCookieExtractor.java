@@ -4,14 +4,15 @@ import net.cybercake.display.utils.Log;
 import org.cef.network.CefCookie;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.*;
-import java.util.Date;
 
 import static java.lang.System.getProperty;
 import static java.lang.System.getenv;

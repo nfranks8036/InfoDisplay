@@ -2,11 +2,6 @@ package net.cybercake.display.status;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 
 public abstract class Indicator {
 

@@ -4,7 +4,6 @@ import net.cybercake.display.utils.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 

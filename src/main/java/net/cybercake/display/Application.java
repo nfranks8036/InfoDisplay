@@ -4,7 +4,6 @@ import com.jogamp.opengl.GLException;
 import net.cybercake.display.args.ArgumentReader;
 import net.cybercake.display.browser.JWebPage;
 import net.cybercake.display.browser.WebPageManager;
-import net.cybercake.display.libraries.LibUnpacker;
 import net.cybercake.display.libraries.UnpackerChecker;
 import net.cybercake.display.status.StatusIndicatorManager;
 import net.cybercake.display.utils.Log;
@@ -13,12 +12,10 @@ import net.cybercake.display.vlc.JVlcPlayer;
 import net.cybercake.display.vlc.VlcManager;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.util.Date;
 
 @SuppressWarnings("CallToPrintStackTrace")
 public class Application {

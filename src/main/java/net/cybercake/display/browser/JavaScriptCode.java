@@ -1,9 +1,5 @@
 package net.cybercake.display.browser;
 
-import org.cef.browser.CefFrame;
-
-import javax.swing.*;
-
 public class JavaScriptCode {
 
     private final String code;

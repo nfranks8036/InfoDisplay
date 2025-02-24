@@ -1,7 +1,7 @@
 package net.cybercake.display.vlc;
 
-import net.cybercake.display.utils.Log;
 import net.cybercake.display.utils.YtDlpReceiver;
+import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
@@ -9,6 +9,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class JVlcPlayer extends JPanel {
+
+    private static final String[] vlcArgs = new String[]{
+            "--avcodec-hw=none",
+            "--no-video-title-show",
+            "--no-xlib",
+            "--vout", "x11"
+    };
 
     private final VlcManager vlcManager;
 
@@ -32,7 +39,12 @@ public class JVlcPlayer extends JPanel {
                 this.originalUrl = YtDlpReceiver.getRawLinkFor(this.originalUrl);
             }
 
-            EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+            EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent(
+                    new MediaPlayerFactory(
+                            vlcArgs
+                    ),
+                    null, null, null, null
+            );
             this.add(mediaPlayerComponent, BorderLayout.CENTER);
 
             EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();

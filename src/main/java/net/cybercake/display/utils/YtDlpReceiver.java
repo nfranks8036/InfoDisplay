@@ -1,10 +1,7 @@
 package net.cybercake.display.utils;
 
-import jogamp.graph.font.typecast.ot.table.CffTable;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.StringJoiner;
 
 public class YtDlpReceiver {
@@ -19,7 +16,7 @@ public class YtDlpReceiver {
             while ((line = reader.readLine()) != null) {
                 if (!line.contains("https"))
                     continue;
-                System.out.println(line);
+                Log.line("yt-dlp searched " + url + " and found: " + line);
 
                 returned.add(line);
             }

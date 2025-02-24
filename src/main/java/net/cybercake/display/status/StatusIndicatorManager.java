@@ -1,6 +1,5 @@
 package net.cybercake.display.status;
 
-import net.cybercake.display.Application;
 import net.cybercake.display.args.ArgumentReader;
 
 import javax.swing.*;
@@ -8,7 +7,6 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Supplier;
 
 import static net.cybercake.display.Application.WINDOW_WIDTH;

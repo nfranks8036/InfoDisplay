@@ -8,12 +8,10 @@ import net.cybercake.display.args.ArgumentReader;
 import net.cybercake.display.libraries.LibUnpacker;
 import net.cybercake.display.utils.Center;
 import net.cybercake.display.utils.Log;
-import org.cef.CefApp;
 
 import java.awt.*;
 import java.io.File;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Scanner;
 

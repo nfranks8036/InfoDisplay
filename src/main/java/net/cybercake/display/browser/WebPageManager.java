@@ -7,14 +7,12 @@ import org.cef.CefClient;
 import org.cef.CefSettings;
 import org.cef.browser.CefBrowser;
 import org.cef.browser.CefFrame;
-import org.cef.handler.*;
-import org.cef.network.CefCookie;
+import org.cef.handler.CefLoadHandlerAdapter;
 import org.cef.network.CefCookieManager;
 
 import javax.annotation.Nullable;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class WebPageManager {

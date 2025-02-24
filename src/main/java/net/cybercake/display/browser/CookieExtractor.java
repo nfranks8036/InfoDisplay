@@ -4,7 +4,6 @@ import net.cybercake.display.utils.Log;
 import org.cef.network.CefCookie;
 import org.cef.network.CefCookieManager;
 
-import java.net.CookieManager;
 import java.util.List;
 
 public abstract class CookieExtractor {

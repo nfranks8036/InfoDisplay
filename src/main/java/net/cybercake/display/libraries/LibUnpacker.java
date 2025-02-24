@@ -1,18 +1,11 @@
 package net.cybercake.display.libraries;
 
-import com.github.junrar.exception.RarException;
-import me.friwi.jcefmaven.impl.util.FileUtils;
-import net.cybercake.display.Main;
 import net.cybercake.display.utils.Log;
 import net.cybercake.display.utils.OS;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class LibUnpacker {
 
