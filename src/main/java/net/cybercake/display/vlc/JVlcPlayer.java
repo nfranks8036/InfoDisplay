@@ -14,9 +14,7 @@ public class JVlcPlayer extends JPanel {
             "--avcodec-hw=none",
             "--no-video-title-show",
             "--no-xlib",
-            "--vout", "x11",
-            "--ignore-ts-errors",
-            "--network-caching=1500"
+            "--vout", "x11"
     };
 
     private final VlcManager vlcManager;
@@ -26,6 +24,8 @@ public class JVlcPlayer extends JPanel {
 
     protected JVlcPlayer(VlcManager manager, String url) {
         super(new BorderLayout());
+
+        System.setProperty("LIBGL_ALWAYS_SOFTWARE", "1");
 
         this.originalUrl = url;
         this.ytConvert = false;
