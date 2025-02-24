@@ -7,6 +7,7 @@ import net.cybercake.display.browser.WebPageManager;
 import net.cybercake.display.libraries.UnpackerChecker;
 import net.cybercake.display.status.StatusIndicatorManager;
 import net.cybercake.display.utils.Log;
+import net.cybercake.display.utils.OS;
 import net.cybercake.display.utils.TimeUtils;
 import net.cybercake.display.vlc.JVlcPlayer;
 import net.cybercake.display.vlc.VlcManager;
@@ -79,6 +80,7 @@ public class Application {
         this.frame = new JFrame("Info Display");
 
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setUndecorated(OS.isLinux());
         this.frame.setCursor(Cursor.getDefaultCursor());
         this.frame.setBackground(Color.black);
         Log.debug("Created frame: JFrame width=" + WINDOW_WIDTH + ", height=" + WINDOW_HEIGHT + ", fill=" + frame.getBackground() + ", cursor=" + frame.getCursor());
@@ -132,14 +134,16 @@ public class Application {
         this.frame.getContentPane().add(this.root, BorderLayout.CENTER);
         this.frame.pack();
 
-        if (Main.getUser().equalsIgnoreCase("oeroo")) {
-            this.frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        if (OS.isWindows()) {
+            this.frame.setSize(dimension(Toolkit.getDefaultToolkit().getScreenSize()));
             this.frame.setLocationRelativeTo(null);
             this.frame.setResizable(false);
+            this.frame.setExtendedState(JFrame.NORMAL);
         } else {
             Log.debug("Maximizing screen...");
             this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         }
+
         this.frame.addWindowListener(new WindowAdapter() {
 
             @Override
@@ -153,6 +157,7 @@ public class Application {
             }
         });
 
+        Log.debug("Making screen visible... program took " + (System.currentTimeMillis() - Main.startTime) + "ms to boot!");
         SwingUtilities.invokeLater(() -> {
             this.frame.setVisible(true);
         });
@@ -172,6 +177,13 @@ public class Application {
     }
 
 
+
+    private static Dimension dimension(Dimension screen) {
+        Dimension dimension = new Dimension();
+        dimension.width = Math.min(screen.width - 100, 1920);
+        dimension.height = Math.min(screen.height - 100, 1080);
+        return dimension;
+    }
 
     private static String paginate(Exception exception) {
         String msg = exception.toString();

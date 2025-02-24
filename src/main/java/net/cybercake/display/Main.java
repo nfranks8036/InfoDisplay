@@ -5,6 +5,7 @@ package net.cybercake.display;
 
 import me.friwi.jcefmaven.impl.util.FileUtils;
 import net.cybercake.display.args.ArgumentReader;
+import net.cybercake.display.boot.LoadingWindow;
 import net.cybercake.display.libraries.LibUnpacker;
 import net.cybercake.display.utils.Center;
 import net.cybercake.display.utils.Log;
@@ -19,8 +20,9 @@ import java.util.Scanner;
 public class Main {
 
     public static Application app;
+    public static LoadingWindow loading;
 
-    private static long startTime;
+    public static long startTime;
 
 //    public static String OPEN_WEATHER_API_KEY = "8bb09be56ab7764152e7a4df426c7de0";
 //    public static String NEWS_API_KEY = "2ecee9e26c36471a91f78205fabc7e41";
@@ -30,9 +32,10 @@ public class Main {
         System.out.println("Loading program... please wait!");
         startTime = System.currentTimeMillis();
         try {
+            loading = new LoadingWindow();
             ArgumentReader reader = new ArgumentReader(args);
 
-            if(reader.getArg("runtimeArgs").getAsBoolean()) {
+            if(reader.getArg("runtime-args").getAsBoolean()) {
                 Scanner scanner = new Scanner(System.in);
                 Log.line("Enter your runtime arguments: ");
                 String[] runtimeArgs = scanner.nextLine().split(" ");
@@ -47,6 +50,8 @@ public class Main {
             Log.line(     Center.text("Made by Noah Franks", SEPARATOR.length())      );
             Log.line(     Center.text("Version 1.0.0", SEPARATOR.length())            );
             Log.line(     SEPARATOR                                                           );
+
+            Thread.sleep(2000); // see the opener text
 
             if (GraphicsEnvironment.isHeadless()) {
                 throw new IllegalStateException("This program cannot run in a headless environment.");

@@ -1,6 +1,9 @@
 package net.cybercake.display.utils;
 
 import net.cybercake.display.Main;
+import net.cybercake.display.boot.LoadingWindow;
+
+import java.security.MessageDigest;
 
 public class Log {
 
@@ -14,6 +17,9 @@ public class Log {
     public static void line(String message, ShowSource showSource) {
         String displayed = null;
         boolean useOfPlaceholder = false;
+        if (!message.contains("DEBUG//")) {
+            Main.loading.ofLog(message);
+        }
         if(showSource.enabled) {
             StackTraceElement caller = Thread.currentThread().getStackTrace()[3];
             displayed = caller.getClassName();
@@ -31,6 +37,7 @@ public class Log {
     }
 
     public static void debug(String message) {
+        Main.loading.ofLog(message);
         Log.line("[DEBUG//%%class%%] " + message, ShowSource.YES);
     }
 
