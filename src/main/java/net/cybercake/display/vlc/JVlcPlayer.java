@@ -14,7 +14,7 @@ public class JVlcPlayer extends JPanel {
             "--avcodec-hw=none",
             "--no-video-title-show",
             "--no-xlib",
-            "--vout", "x11"
+            "--vout", "xcb_x11"
     };
 
     private final VlcManager vlcManager;
