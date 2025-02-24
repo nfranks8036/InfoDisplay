@@ -20,6 +20,7 @@ public class LoadingWindow {
         this.frame.setResizable(false);
         this.frame.setSize(900, 100);
 
+        this.frame.setLocation(100, 100);
         this.frame.setBackground(Color.BLACK);
 
         this.panel = new JPanel(new GridLayout(2, 1));
