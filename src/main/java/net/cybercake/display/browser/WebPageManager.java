@@ -31,7 +31,6 @@ public class WebPageManager {
 
         String[] cefArgs = new String[]{
                 "--disable-gpu", "--disable-software-rasterizer"
-
         };
         if (!CefApp.startup(cefArgs)) {
             throw new RuntimeException("Failed to startup JCEF");

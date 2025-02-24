@@ -1,5 +1,6 @@
 package net.cybercake.display.vlc;
 
+import net.cybercake.display.utils.Log;
 import net.cybercake.display.utils.YtDlpReceiver;
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
@@ -31,19 +32,16 @@ public class JVlcPlayer extends JPanel {
 
         this.vlcManager = manager;
 
-        SwingUtilities.invokeLater(() -> {
-            if (JVlcPlayer.this.ytConvert) {
-                this.originalUrl = YtDlpReceiver.getRawLinkFor(this.originalUrl);
-            }
+        if (JVlcPlayer.this.ytConvert) {
+            this.originalUrl = YtDlpReceiver.getRawLinkFor(this.originalUrl);
+        }
 
-            EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
-            this.add(mediaPlayerComponent, BorderLayout.CENTER);
+        EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+        EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
 
-            EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
+        this.add(mediaPlayerComponent, BorderLayout.CENTER);
 
-            mediaPlayer.media().play(JVlcPlayer.this.originalUrl);
-
-        });
+        SwingUtilities.invokeLater(() -> mediaPlayer.media().play(JVlcPlayer.this.originalUrl));
     }
 
 }
