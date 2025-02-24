@@ -8,21 +8,38 @@ import java.awt.*;
 public class LoadingWindow {
 
     private final JFrame frame;
-    private final JLabel label;
+
+    private final JPanel panel;
+
+    private final JLabel clazz;
+    private final JLabel log;
 
     public LoadingWindow() {
         this.frame = new JFrame("Info Display | Loading...");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setResizable(false);
-        this.frame.setSize(600, 200);
+        this.frame.setSize(900, 100);
 
         this.frame.setBackground(Color.BLACK);
         this.frame.setLocationRelativeTo(null);
 
-        this.label = new JLabel("Loading...");
-        this.label.setFont(new Font("Consolas", Font.ITALIC, 20));
-        this.label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.frame.add(this.label);
+        this.panel = new JPanel(new GridLayout(2, 1));
+        this.panel.setBackground(Color.BLACK);
+        this.panel.setSize(900, 100);
+
+        this.clazz = new JLabel("Loading...");
+        this.clazz.setFont(new Font("Consolas", Font.ITALIC, 10));
+        this.clazz.setForeground(Color.LIGHT_GRAY);
+        this.clazz.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.panel.add(this.clazz);
+
+        this.log = new JLabel("Loading...");
+        this.log.setFont(new Font("Consolas", Font.ITALIC, 20));
+        this.log.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.log.setForeground(Color.WHITE);
+        this.panel.add(this.log);
+
+        this.frame.getContentPane().add(this.panel, BorderLayout.CENTER);
 
         SwingUtilities.invokeLater(() -> {
             this.frame.setVisible(true);
@@ -30,11 +47,17 @@ public class LoadingWindow {
 
     }
 
-    public void ofLog(String text) {
+    public void ofLog(String clazz, String text) {
         if (!this.frame.isActive()) {
             return;
         }
-        this.label.setText(text);
+        try {
+            this.clazz.setText(clazz);
+            this.log.setText(text);
+            Thread.sleep(50);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void dispose() {
