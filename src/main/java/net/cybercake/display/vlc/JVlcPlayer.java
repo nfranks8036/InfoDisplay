@@ -10,7 +10,9 @@ import java.awt.*;
 
 public class JVlcPlayer extends JPanel {
 
-    private static final String[] vlcArgs = new String[]{};
+    private static final String[] vlcArgs = new String[]{
+
+    };
 
     private final VlcManager vlcManager;
 
@@ -19,8 +21,6 @@ public class JVlcPlayer extends JPanel {
 
     protected JVlcPlayer(VlcManager manager, String url) {
         super(new BorderLayout());
-
-        System.setProperty("sun.java2d.opengl", "true");
 
         this.originalUrl = url;
         this.ytConvert = false;

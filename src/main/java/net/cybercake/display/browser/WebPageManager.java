@@ -30,7 +30,7 @@ public class WebPageManager {
         this.webPages = new ArrayList<>();
 
         String[] cefArgs = new String[]{
-                "--disable-gpu", "--disable-software-rasterizer", "--in-process-gpu"
+                "--disable-gpu", "--disable-software-rasterizer"
 
         };
         if (!CefApp.startup(cefArgs)) {
