@@ -115,7 +115,7 @@ public class Application {
         this.root.add(timezones);
 
 //        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
-        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://youtube.com/watch?v=T9Sw9s_VMSI", true);
+        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
         this.root.add(youtube);
 
         this.status.implement(this.frame);
