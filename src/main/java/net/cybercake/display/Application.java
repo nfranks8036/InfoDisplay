@@ -87,11 +87,8 @@ public class Application {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setUndecorated(OS.isLinux());
         this.frame.setCursor(Cursor.getDefaultCursor());
-        this.frame.setBackground(Color.black);
         Log.debug("Created frame: JFrame width=" + WINDOW_WIDTH + ", height=" + WINDOW_HEIGHT + ", fill=" + frame.getBackground() + ", cursor=" + frame.getCursor());
-
-        this.root = new JPanel(new BorderLayout());
-        this.root.setBackground(Color.black);
+        
 //        grid.setAlignment(Pos.CENTER);
 //        grid.setPadding(new Insets(25, 25, 25, 25));
         Log.debug("Created panel of type GridLayout: " + this.root);
@@ -105,7 +102,8 @@ public class Application {
         EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
         EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
 
-        frame.setContentPane(mediaPlayerComponent);        SwingUtilities.invokeLater(() -> {
+        frame.setContentPane(mediaPlayerComponent);
+        SwingUtilities.invokeLater(() -> {
             mediaPlayer.media().play("https://www.youtube.com/watch?v=YDfiTGGPYCk");
         });
 
