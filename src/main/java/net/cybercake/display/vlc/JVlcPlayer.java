@@ -40,6 +40,7 @@ public class JVlcPlayer extends JPanel {
         EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
 
         this.add(mediaPlayerComponent, BorderLayout.CENTER);
+        mediaPlayerComponent.setVisible(true);
 
         SwingUtilities.invokeLater(() -> mediaPlayer.media().play(JVlcPlayer.this.originalUrl));
     }
