@@ -2,6 +2,9 @@ package net.cybercake.display.vlc;
 
 import net.cybercake.display.utils.Log;
 import net.cybercake.display.utils.YtDlpReceiver;
+import org.freedesktop.gstreamer.Gst;
+import org.freedesktop.gstreamer.elements.AppSink;
+import org.freedesktop.gstreamer.swing.GstVideoComponent;
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
 import uk.co.caprica.vlcj.media.MediaRef;
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
@@ -39,9 +42,10 @@ public class JVlcPlayer extends JPanel {
             this.originalUrl = YtDlpReceiver.getRawLinkFor(this.originalUrl);
         }
 
-        EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
-        EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
+        Gst.init();
+        EventQueue.invokeLater(() -> {
 
+        });
         this.add(mediaPlayerComponent, BorderLayout.CENTER);
 
         SwingUtilities.invokeLater(() -> {

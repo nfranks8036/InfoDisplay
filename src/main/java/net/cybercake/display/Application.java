@@ -51,7 +51,7 @@ public class Application {
         Log.debug("Application#start()");
         SwingUtilities.invokeLater(() -> {
             try {
-                application.tryThis();
+                application.start();
             } catch (GLException glException) {
                 Main.loading.dispose();
                 glException.printStackTrace();
@@ -106,7 +106,7 @@ public class Application {
             mediaPlayer.media().play("https://www.youtube.com/watch?v=YDfiTGGPYCk");
         });
 
-        
+
         if (OS.isWindows()) {
             this.frame.setSize(dimension(Toolkit.getDefaultToolkit().getScreenSize()));
             this.frame.setLocationRelativeTo(null);
