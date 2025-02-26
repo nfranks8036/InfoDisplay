@@ -3,6 +3,7 @@ package net.cybercake.display.vlc;
 import net.cybercake.display.utils.Log;
 import net.cybercake.display.utils.YtDlpReceiver;
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
+import uk.co.caprica.vlcj.media.MediaRef;
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.embedded.videosurface.VideoSurface;

@@ -11,6 +11,8 @@ import net.cybercake.display.utils.OS;
 import net.cybercake.display.utils.TimeUtils;
 import net.cybercake.display.vlc.JVlcPlayer;
 import net.cybercake.display.vlc.VlcManager;
+import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -100,11 +102,12 @@ public class Application {
 //        grid.add(text, 0, 0, 1, 1);
 
 //        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
-        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
-        this.root.add(youtube);
+        EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+        EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
 
-        this.frame.getContentPane().add(this.root, BorderLayout.CENTER);
-        this.frame.pack();
+        frame.setContentPane(mediaPlayerComponent);        SwingUtilities.invokeLater(() -> {
+            mediaPlayer.media().play("https://www.youtube.com/watch?v=YDfiTGGPYCk");
+        });
 
         if (OS.isWindows()) {
             this.frame.setSize(dimension(Toolkit.getDefaultToolkit().getScreenSize()));
@@ -130,10 +133,8 @@ public class Application {
         });
 
         Log.debug("Making screen visible... program took " + (System.currentTimeMillis() - Main.startTime) + "ms to boot!");
-        SwingUtilities.invokeLater(() -> {
-            this.frame.setVisible(true);
-            Main.loading.dispose();
-        });
+        this.frame.setVisible(true);
+        Main.loading.dispose();
     }
 
     public void start() throws IOException {
