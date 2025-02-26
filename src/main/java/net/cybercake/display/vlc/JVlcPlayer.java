@@ -5,6 +5,7 @@ import net.cybercake.display.utils.YtDlpReceiver;
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import uk.co.caprica.vlcj.player.embedded.videosurface.VideoSurface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class JVlcPlayer extends JPanel {
     private boolean ytConvert;
     private String originalUrl;
 
+    @SuppressWarnings("CallToPrintStackTrace")
     protected JVlcPlayer(VlcManager manager, String url) {
         super(new BorderLayout());
 
@@ -39,11 +41,17 @@ public class JVlcPlayer extends JPanel {
         EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
         EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
 
-
-        mediaPlayerComponent.setVisible(true);
         this.add(mediaPlayerComponent, BorderLayout.CENTER);
 
-        SwingUtilities.invokeLater(() -> mediaPlayer.media().play(JVlcPlayer.this.originalUrl));
+        SwingUtilities.invokeLater(() -> {
+            try {
+                if (!mediaPlayer.media().play(JVlcPlayer.this.originalUrl)) {
+                    throw new IllegalArgumentException("Media failed to play, no reason specified.");
+                }
+            } catch (Exception exception) {
+                new IllegalStateException("VLC failed to play video from url: " + JVlcPlayer.this.originalUrl, exception).printStackTrace();
+            }
+        });
     }
 
 }
