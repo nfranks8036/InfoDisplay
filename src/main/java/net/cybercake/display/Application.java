@@ -49,7 +49,7 @@ public class Application {
         Log.debug("Application#start()");
         SwingUtilities.invokeLater(() -> {
             try {
-                application.start();
+                application.tryThis();
             } catch (GLException glException) {
                 Main.loading.dispose();
                 glException.printStackTrace();
@@ -78,6 +78,63 @@ public class Application {
 
     private JFrame frame;
     private JPanel root;
+
+    public void tryThis() {
+        this.frame = new JFrame("Info Display Skeleton");
+
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setUndecorated(OS.isLinux());
+        this.frame.setCursor(Cursor.getDefaultCursor());
+        this.frame.setBackground(Color.black);
+        Log.debug("Created frame: JFrame width=" + WINDOW_WIDTH + ", height=" + WINDOW_HEIGHT + ", fill=" + frame.getBackground() + ", cursor=" + frame.getCursor());
+
+        this.root = new JPanel(new BorderLayout());
+        this.root.setBackground(Color.black);
+//        grid.setAlignment(Pos.CENTER);
+//        grid.setPadding(new Insets(25, 25, 25, 25));
+        Log.debug("Created panel of type GridLayout: " + this.root);
+
+//        Text text = new Text("No program data.");
+//        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+//        text.setFill(Color.rgb(255, 255, 255, 1.0));
+//        grid.add(text, 0, 0, 1, 1);
+
+//        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
+        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
+        this.root.add(youtube);
+
+        this.frame.getContentPane().add(this.root, BorderLayout.CENTER);
+        this.frame.pack();
+
+        if (OS.isWindows()) {
+            this.frame.setSize(dimension(Toolkit.getDefaultToolkit().getScreenSize()));
+            this.frame.setLocationRelativeTo(null);
+            this.frame.setResizable(false);
+            this.frame.setExtendedState(JFrame.NORMAL);
+        } else {
+            Log.debug("Maximizing screen...");
+            this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }
+
+        this.frame.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Application.this.dispose();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Application.this.dispose();
+            }
+        });
+
+        Log.debug("Making screen visible... program took " + (System.currentTimeMillis() - Main.startTime) + "ms to boot!");
+        SwingUtilities.invokeLater(() -> {
+            this.frame.setVisible(true);
+            Main.loading.dispose();
+        });
+    }
 
     public void start() throws IOException {
         this.frame = new JFrame("Info Display");
