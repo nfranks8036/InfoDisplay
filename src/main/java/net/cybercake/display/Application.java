@@ -88,10 +88,9 @@ public class Application {
         this.frame.setUndecorated(OS.isLinux());
         this.frame.setCursor(Cursor.getDefaultCursor());
         Log.debug("Created frame: JFrame width=" + WINDOW_WIDTH + ", height=" + WINDOW_HEIGHT + ", fill=" + frame.getBackground() + ", cursor=" + frame.getCursor());
-        
+
 //        grid.setAlignment(Pos.CENTER);
 //        grid.setPadding(new Insets(25, 25, 25, 25));
-        Log.debug("Created panel of type GridLayout: " + this.root);
 
 //        Text text = new Text("No program data.");
 //        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
