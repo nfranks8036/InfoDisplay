@@ -36,6 +36,7 @@ dependencies {
     implementation 'me.friwi:jcefmaven:132.3.1'
     implementation 'org.xerial:sqlite-jdbc:3.41.2.2'
     implementation 'uk.co.caprica:vlcj:4.9.0'
+    implementation 'org.bytedeco:javacv-platform:1.5.6'
 }
 
 application {

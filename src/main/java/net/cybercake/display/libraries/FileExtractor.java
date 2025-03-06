@@ -58,13 +58,13 @@ public class FileExtractor {
     }
 
     private boolean checkParent(File file) {
-        return createParent(file.getParentFile());
+        return this.createParent(file.getParentFile());
     }
 
     private boolean createParent(File file) {
         if (file.exists())
             return true;
-        if (createParent(file.getParentFile())) {
+        if (this.createParent(file.getParentFile())) {
             if (!file.mkdir()) {
                 throw new IllegalStateException("Failed to create parent file @ " + file.getAbsolutePath());
             }
