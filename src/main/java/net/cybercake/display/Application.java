@@ -193,7 +193,7 @@ public class Application {
         this.status.addFromSupp(() -> "OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " (" + System.getProperty("os.arch") + ") as " + System.getProperty("user.name"));
         this.status.addFromCmd("Temperature", "vcgencmd measure_temp").peek((s) -> s.replace("'C", "°C"));
 //        this.status.addFromCmd("CPU Usage", "/bin/sh -c top -bn1 | grep \"Cpu(s)\" | awk '{print 100 - $8}'").peek((s) -> s + "%");
-        this.status.addFromCmd("Hostname", "/bin/sh -c hostname -I").peek((s) -> s + "%");
+        this.status.addFromCmd("IP", "/bin/sh -c hostname -I").peek((s) -> s + "%");
         this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> s + " MHz");
         this.status.addFromCmd("ARM Allocated Memory", "vcgencmd get_mem arm");
         this.status.addFromCmd("Memory Usage", "/bin/sh -c \"free -m | awk '/Mem:/'\"").peek((s) -> s.split("\t")[2] + "MB");
