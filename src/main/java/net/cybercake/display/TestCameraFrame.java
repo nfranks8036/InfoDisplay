@@ -11,9 +11,12 @@ import java.awt.image.DataBufferByte;
 
 public class TestCameraFrame extends JFrame {
 
+    private static final int IMG_WIDTH = 1920;
+    private static final int IMG_HEIGHT = 1080;
+
     public TestCameraFrame() {
         setTitle("TestApp");
-        setSize(640, 480);
+        setSize(IMG_WIDTH, IMG_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -31,7 +34,6 @@ public class TestCameraFrame extends JFrame {
 
         public TestCamera(JFrame jFrame) {
             this.jFrame = jFrame;
-            System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
             camera = new VideoCapture(1);
             if (!camera.isOpened()) {
@@ -39,7 +41,7 @@ public class TestCameraFrame extends JFrame {
                 return;
             }
 
-            frame = new Mat();
+            frame = new Mat(1920, 1080, 1);
         }
 
 
@@ -53,11 +55,11 @@ public class TestCameraFrame extends JFrame {
                 graphics = (Graphics2D) jFrame.getGraphics();
 
                 if (graphics != null) {
-                    graphics.drawImage(image, 0, 0, null);
+                    graphics.drawImage(image, 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
                 }
 
                 try {
-                    Thread.sleep(30);
+                    Thread.sleep(10);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     break;

@@ -9,6 +9,7 @@ import net.cybercake.display.boot.LoadingWindow;
 import net.cybercake.display.libraries.LibUnpacker;
 import net.cybercake.display.utils.Center;
 import net.cybercake.display.utils.Log;
+import org.opencv.core.Core;
 
 import java.awt.*;
 import java.io.File;
@@ -33,6 +34,7 @@ public class Main {
         startTime = System.currentTimeMillis();
         try {
             loading = new LoadingWindow();
+            nu.pattern.OpenCV.loadLocally();
             ArgumentReader reader = new ArgumentReader(args);
 
             if(reader.getArg("runtime-args").getAsBoolean()) {

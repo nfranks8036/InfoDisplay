@@ -52,7 +52,7 @@ public class Application {
         Log.debug("Application#start()");
         SwingUtilities.invokeLater(() -> {
             try {
-                application.start();
+                application.tryThis();
             } catch (GLException glException) {
                 Main.loading.dispose();
                 glException.printStackTrace();
@@ -143,7 +143,7 @@ public class Application {
         Main.loading.dispose();
     }
 
-    public void start() throws IOException {
+    public void start() {
         this.frame = new JFrame("Info Display");
 
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -193,7 +193,7 @@ public class Application {
         this.status.addFromSupp(() -> "OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " (" + System.getProperty("os.arch") + ") as " + System.getProperty("user.name"));
         this.status.addFromCmd("Temperature", "vcgencmd measure_temp").peek((s) -> s.replace("'C", "°C"));
 //        this.status.addFromCmd("CPU Usage", "/bin/sh -c top -bn1 | grep \"Cpu(s)\" | awk '{print 100 - $8}'").peek((s) -> s + "%");
-        this.status.addFromCmd("IP", "hostname -I").peek((s) -> s + "%");
+        this.status.addFromCmd("IP", "hostname -I");
         this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> s + " MHz");
         this.status.addFromCmd("ARM Allocated Memory", "vcgencmd get_mem arm");
         this.status.addFromCmd("Memory Usage", "/bin/sh -c \"free -m | awk '/Mem:/'\"").peek((s) -> s.split("\t")[2] + "MB");
