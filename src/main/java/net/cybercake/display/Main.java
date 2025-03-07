@@ -33,8 +33,8 @@ public class Main {
         System.out.println("Loading program... please wait!");
         startTime = System.currentTimeMillis();
         try {
-            loading = new LoadingWindow();
-            nu.pattern.OpenCV.loadLocally();
+//            loading = new LoadingWindow();
+//            nu.pattern.OpenCV.loadLocally();
             ArgumentReader reader = new ArgumentReader(args);
 
             if(reader.getArg("runtime-args").getAsBoolean()) {
