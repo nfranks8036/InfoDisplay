@@ -33,6 +33,7 @@ public class Main {
         System.out.println("Loading program... please wait!");
         startTime = System.currentTimeMillis();
         try {
+            loading = new LoadingWindow();
             ArgumentReader reader = new ArgumentReader(args);
 
             if(reader.getArg("runtime-args").getAsBoolean()) {
