@@ -1,6 +1,9 @@
 package net.cybercake.display.utils;
 
 import net.cybercake.display.Main;
+import net.cybercake.display.boot.LoadingWindow;
+
+import java.security.MessageDigest;
 
 public class Log {
 
@@ -10,8 +13,12 @@ public class Log {
         line(String.valueOf(object), ShowSource.NO);
     }
 
-    @SuppressWarnings("ConstantValue")
     public static void line(String message, ShowSource showSource) {
+        line0(message, message, showSource);
+    }
+
+    @SuppressWarnings("ConstantValue")
+    private static void line0(String originalMessage, String message, ShowSource showSource) {
         String displayed = null;
         boolean useOfPlaceholder = false;
         if(showSource.enabled) {
@@ -26,12 +33,13 @@ public class Log {
                 message = message.replace("%%class%%", displayed);
                 useOfPlaceholder = true;
             }
+            Main.loading.ofLog(displayed, originalMessage);
         }
         System.out.println((displayed != null && showSource.enabled && !useOfPlaceholder ? displayed + ": " : "") + message);
     }
 
     public static void debug(String message) {
-        Log.line("[DEBUG//%%class%%] " + message, ShowSource.YES);
+        Log.line0(message, "[DEBUG//%%class%%] " + message, ShowSource.YES);
     }
 
     public enum ShowSource {

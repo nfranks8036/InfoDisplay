@@ -3,22 +3,27 @@
 
 package net.cybercake.display;
 
-import javafx.stage.Stage;
+import me.friwi.jcefmaven.impl.util.FileUtils;
 import net.cybercake.display.args.ArgumentReader;
+import net.cybercake.display.boot.LoadingWindow;
+import net.cybercake.display.libraries.LibUnpacker;
 import net.cybercake.display.utils.Center;
 import net.cybercake.display.utils.Log;
+import org.opencv.core.Core;
 
 import java.awt.*;
 import java.io.File;
-import java.util.Locale;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
+@SuppressWarnings("CallToPrintStackTrace")
 public class Main {
 
     public static Application app;
+    public static LoadingWindow loading;
 
-    private static long startTime;
+    public static long startTime;
 
 //    public static String OPEN_WEATHER_API_KEY = "8bb09be56ab7764152e7a4df426c7de0";
 //    public static String NEWS_API_KEY = "2ecee9e26c36471a91f78205fabc7e41";
@@ -28,9 +33,11 @@ public class Main {
         System.out.println("Loading program... please wait!");
         startTime = System.currentTimeMillis();
         try {
+            loading = new LoadingWindow();
+            nu.pattern.OpenCV.loadLocally();
             ArgumentReader reader = new ArgumentReader(args);
 
-            if(reader.getArg("runtimeArgs").getAsBoolean()) {
+            if(reader.getArg("runtime-args").getAsBoolean()) {
                 Scanner scanner = new Scanner(System.in);
                 Log.line("Enter your runtime arguments: ");
                 String[] runtimeArgs = scanner.nextLine().split(" ");
@@ -46,9 +53,13 @@ public class Main {
             Log.line(     Center.text("Version 1.0.0", SEPARATOR.length())            );
             Log.line(     SEPARATOR                                                           );
 
+            Thread.sleep(2000); // see the opener text
+
             if (GraphicsEnvironment.isHeadless()) {
                 throw new IllegalStateException("This program cannot run in a headless environment.");
             }
+
+            unpackLibraries();
 
             Application.instance(reader);
         } catch (Exception exception) {
@@ -56,6 +67,26 @@ public class Main {
             Log.line("AN EXCEPTION OCCURRED: [SEE BELOW FOR DETAILS]");
             exception.printStackTrace();
             System.exit(1); // generic exception
+        }
+    }
+
+    static void unpackLibraries() {
+        try {
+            LibUnpacker.setState(LibUnpacker.UnpackProgress.NOT_STARTED);
+            LibUnpacker.unpack();
+        } catch (Exception exception) {
+            throw new RuntimeException("**** CRITICAL ERROR: FAILED TO EXTRACT REQUIRED LIBRARIES!! ****", exception);
+        }
+    }
+
+    public static void clean() {
+        String[] dirs = new String[]{"build", "cache", "cookies", "libs"};
+        try {
+            for (String dir : dirs) {
+                FileUtils.deleteDir(new File(".", dir));
+            }
+        } catch (Exception exception) {
+            Log.debug("Failed to clean up directories " + Arrays.toString(dirs) + ": " + exception);
         }
     }
 

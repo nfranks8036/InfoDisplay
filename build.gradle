@@ -1,3 +1,10 @@
+/**
+ * need:
+ * vlc
+ * yt-dlp
+ * youtube logged-in firefox account
+ */
+
 plugins {
     id 'application'
     id 'idea'
@@ -19,6 +26,9 @@ group = 'net.cybercake.display'
 version = '1.0.0'
 mainClassName = "net.cybercake.display.Main"
 
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
 repositories {
     mavenCentral()
 }
@@ -27,4 +37,20 @@ dependencies {
     implementation 'com.google.api-client:google-api-client:2.6.0'
     implementation 'com.github.junrar:junrar:7.5.5'
 
+//    implementation files('libs/jcef.jar') // Add JCEF JAR
+    implementation 'me.friwi:jcefmaven:132.3.1'
+    implementation 'org.xerial:sqlite-jdbc:3.41.2.2'
+    implementation 'uk.co.caprica:vlcj:4.9.0'
+    implementation 'org.bytedeco:javacv-platform:1.5.6'
+    implementation 'org.openpnp:opencv:3.2.0-0'
+    implementation 'nu.pattern:opencv:2.4.9-4'
+}
+
+application {
+    String jcefPath = String.valueOf(project.rootDir) + File.separator + "libs" + File.separator + "jcef"
+    applicationDefaultJvmArgs = [
+            "-Djava.library.path=" + System.getProperty("java.library.path") + ";" + jcefPath,   // Path to native libraries
+            "-Djcef.resources.dir=" + jcefPath  // Path to JCEF resources
+    ]
+    mainClass = 'net.cybercake.display.Main' // Replace with your application's main class
 }
