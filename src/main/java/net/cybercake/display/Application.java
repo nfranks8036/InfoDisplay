@@ -52,7 +52,7 @@ public class Application {
         Log.debug("Application#start()");
         SwingUtilities.invokeLater(() -> {
             try {
-                application.tryThis();
+                application.start();
             } catch (GLException glException) {
                 Main.loading.dispose();
                 glException.printStackTrace();
@@ -81,67 +81,6 @@ public class Application {
 
     private JFrame frame;
     private JPanel root;
-
-    public void tryThis() {
-        if (2 > 1) {
-            TestCameraFrame frame = new TestCameraFrame();
-            return;
-        }
-
-        this.frame = new JFrame("Info Display Skeleton");
-
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setUndecorated(OS.isLinux());
-        this.frame.setCursor(Cursor.getDefaultCursor());
-        Log.debug("Created frame: JFrame width=" + WINDOW_WIDTH + ", height=" + WINDOW_HEIGHT + ", fill=" + frame.getBackground() + ", cursor=" + frame.getCursor());
-
-//        grid.setAlignment(Pos.CENTER);
-//        grid.setPadding(new Insets(25, 25, 25, 25));
-
-//        Text text = new Text("No program data.");
-//        text.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-//        text.setFill(Color.rgb(255, 255, 255, 1.0));
-//        grid.add(text, 0, 0, 1, 1);
-
-//        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
-
-//        EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
-//        EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
-//
-//        frame.setContentPane(mediaPlayerComponent);
-//        SwingUtilities.invokeLater(() -> {
-//            mediaPlayer.media().play("https://www.youtube.com/watch?v=YDfiTGGPYCk");
-//        });
-
-        VideoCapture capture = new VideoCapture(1);
-
-        if (OS.isWindows()) {
-            this.frame.setSize(dimension(Toolkit.getDefaultToolkit().getScreenSize()));
-            this.frame.setLocationRelativeTo(null);
-            this.frame.setResizable(false);
-            this.frame.setExtendedState(JFrame.NORMAL);
-        } else {
-            Log.debug("Maximizing screen...");
-            this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        }
-
-        this.frame.addWindowListener(new WindowAdapter() {
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-                Application.this.dispose();
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                Application.this.dispose();
-            }
-        });
-
-        Log.debug("Making screen visible... program took " + (System.currentTimeMillis() - Main.startTime) + "ms to boot!");
-        this.frame.setVisible(true);
-        Main.loading.dispose();
-    }
 
     public void start() {
         this.frame = new JFrame("Info Display");
@@ -194,10 +133,8 @@ public class Application {
         this.status.addFromCmd("Temperature", "vcgencmd measure_temp").peek((s) -> s.replace("'C", "°C"));
 //        this.status.addFromCmd("CPU Usage", "/bin/sh -c top -bn1 | grep \"Cpu(s)\" | awk '{print 100 - $8}'").peek((s) -> s + "%");
         this.status.addFromCmd("IP", "hostname -I");
-        this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> s + " MHz");
+        this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> (Integer.parseInt(s))/1000 + " MHz");
         this.status.addFromCmd("ARM Allocated Memory", "vcgencmd get_mem arm");
-        this.status.addFromCmd("Memory Usage", "/bin/sh -c \"free -m | awk '/Mem:/'\"").peek((s) -> s.split("\t")[2] + "MB");
-        this.status.addFromCmd("Memory Total", "/bin/sh -c \"free -m | awk '/Mem:/'\"").peek((s) -> s.split("\t")[1] + "MB");
 
         this.frame.getContentPane().add(this.root, BorderLayout.CENTER);
         this.frame.pack();
