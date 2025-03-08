@@ -30,7 +30,7 @@ public class WebPageManager {
         this.webPages = new ArrayList<>();
 
         String[] cefArgs = new String[]{
-                "--disable-gpu", "--disable-software-rasterizer", "--disable-gpu-compositing"
+                "--disable-software-rasterizer", "--disable-gpu-compositing"
         };
         if (!CefApp.startup(cefArgs)) {
             throw new RuntimeException("Failed to startup JCEF");
