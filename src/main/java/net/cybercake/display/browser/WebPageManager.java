@@ -35,13 +35,12 @@ public class WebPageManager {
         if (!CefApp.startup(cefArgs)) {
             throw new RuntimeException("Failed to startup JCEF");
         }
-        APP = CefApp.getInstance(cefArgs);
         CefSettings settings = new CefSettings();
         settings.cache_path = new File(".").getAbsolutePath() + File.separator + "cache";
         settings.windowless_rendering_enabled = false;
         settings.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:134.0) Gecko/20100101 Firefox/134.0";
+        APP = CefApp.getInstance(cefArgs, settings);
         Log.debug("Utilizing " + APP.getVersion());
-        APP.setSettings(settings);
 
         CLIENT = APP.createClient();
         CLIENT.addLoadHandler(new CefLoadHandlerAdapter() {
