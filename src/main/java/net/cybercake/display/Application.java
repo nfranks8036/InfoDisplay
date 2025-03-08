@@ -11,9 +11,6 @@ import net.cybercake.display.utils.OS;
 import net.cybercake.display.utils.TimeUtils;
 import net.cybercake.display.vlc.JVlcPlayer;
 import net.cybercake.display.vlc.VlcManager;
-import org.opencv.videoio.VideoCapture;
-import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
-import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 import javax.swing.*;
 import java.awt.*;
