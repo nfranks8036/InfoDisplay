@@ -50,7 +50,7 @@ public class LibUnpacker {
 //            Log.debug("|- Set system property to point to: " + System.getProperty("jcef.resources.dir"));
 
             if (OS.isLinux()) {
-                Process process = Runtime.getRuntime().exec(new String[]{"chmod", "+x", "/home/fra-100/InfoDisplay/libs/jcef/*"});
+                Process process = Runtime.getRuntime().exec(new String[]{"chmod", "+x", "./libs/jcef/*"});
                 process.destroy();
             }
 

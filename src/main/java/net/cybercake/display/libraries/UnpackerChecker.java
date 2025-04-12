@@ -12,15 +12,15 @@ public class UnpackerChecker {
     static void confirm() {
         file = new File(".");
 
-        assertThat("~libs", "directory doesn't exist", true);
+        assertExists("~libs", "directory doesn't exist", true);
 
-        assertThat("~jcef", "directory doesn't exist", true);
+        assertExists("~jcef", "directory doesn't exist", true);
 
-        assertThat("resources.pak", "required file doesn't exist", false);
+        assertExists("resources.pak", "required file doesn't exist", false);
 
-        assertThat("locales",  "directory doesn't exist", true);
+        assertExists("locales",  "directory doesn't exist", true);
 
-        assertThat("en-US.pak", "locale doesn't exist", false);
+        assertExists("en-US.pak", "locale doesn't exist", false);
     }
 
     public static boolean shouldTryAgain() {
@@ -29,7 +29,7 @@ public class UnpackerChecker {
         return again;
     }
 
-    private static void assertThat(String name, String msg,  boolean isDirectory) {
+    private static void assertExists(String name, String msg, boolean isDirectory) {
         if (isDirectory && !name.contains("~")) {
             file = file.getParentFile();
         }
