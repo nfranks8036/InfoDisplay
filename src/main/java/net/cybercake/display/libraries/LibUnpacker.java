@@ -49,10 +49,10 @@ public class LibUnpacker {
             //            "-Djcef.resources.dir=libs/native"  // Path to JCEF resources
 //            Log.debug("|- Set system property to point to: " + System.getProperty("jcef.resources.dir"));
 
-            if (OS.isLinux()) {
-                Process process = Runtime.getRuntime().exec(new String[]{"chmod", "+x", "./libs/jcef/*"});
-                process.destroy();
-            }
+//            if (OS.isLinux()) {
+//                Process process = Runtime.getRuntime().exec(new String[]{"chmod", "+x", "./libs/jcef/*"});
+//                process.destroy();
+//            }
 
             LibUnpacker.setState(UnpackProgress.COMPLETE_SUCCESS);
             Log.debug("|- [SUCCESS] LibUnpacker succeeded!");
