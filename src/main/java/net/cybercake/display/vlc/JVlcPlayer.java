@@ -6,6 +6,7 @@ import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
 import uk.co.caprica.vlcj.media.MediaRef;
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import uk.co.caprica.vlcj.player.embedded.fullscreen.FullScreenStrategy;
 import uk.co.caprica.vlcj.player.embedded.videosurface.VideoSurface;
 
 import javax.swing.*;
@@ -39,7 +40,8 @@ public class JVlcPlayer extends JPanel {
             this.originalUrl = YtDlpReceiver.getRawLinkFor(this.originalUrl);
         }
 
-        EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+        MediaPlayerFactory factory = new MediaPlayerFactory("--vout", "x11");
+        EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent(factory, null, null, null, null);
         EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
 
         this.add(mediaPlayerComponent, BorderLayout.CENTER);
