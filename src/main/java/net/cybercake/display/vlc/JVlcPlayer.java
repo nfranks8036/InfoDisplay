@@ -40,7 +40,7 @@ public class JVlcPlayer extends JPanel {
             this.originalUrl = YtDlpReceiver.getRawLinkFor(this.originalUrl);
         }
 
-        MediaPlayerFactory factory = new MediaPlayerFactory("--vout", "x11");
+        MediaPlayerFactory factory = new MediaPlayerFactory("--vout", "x11", "--avcodec-hw", "none");
         EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent(factory, null, null, null, null);
         EmbeddedMediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
 
