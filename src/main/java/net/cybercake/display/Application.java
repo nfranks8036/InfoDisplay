@@ -106,32 +106,32 @@ public class Application {
         );
         this.root.add(time);
 
-        JWebPage weather = this.web.createWebPage("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
-        weather.executeJavaScript("document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';");
-        this.root.add(weather);
-
-        JWebPage timezones = this.web.createWebPage("https://www.time.gov/?t=24");
-        timezones.executeJavaScript(
-                "window.scrollTo(0, 30);" +
-                        "document.body.style.color = 'white';" +
-                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
-                        "document.body.style.zoom = 0.9;"
-        );
-        this.root.add(timezones);
+//        JWebPage weather = this.web.createWebPage("https://obscountdown.com/lwf?api_key=8bb09be56ab7764152e7a4df426c7de0&lat=37.2296566&lon=-80.4136767&unit=imperial&weather_round=0&theme=gray&lang=en&timezone=America%252FNew_York&hour_format=1&bg_color=%23303d50&font_color=%23f0f0f0&font=Cabin&background_transparency=0&scroll_speed=1&scroll_direction=left");
+//        weather.executeJavaScript("document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';");
+//        this.root.add(weather);
+//
+//        JWebPage timezones = this.web.createWebPage("https://www.time.gov/?t=24");
+//        timezones.executeJavaScript(
+//                "window.scrollTo(0, 30);" +
+//                        "document.body.style.color = 'white';" +
+//                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
+//                        "document.body.style.zoom = 0.9;"
+//        );
+//        this.root.add(timezones);
 
 //        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
         JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
         this.root.add(youtube);
 
-        this.status.implement(this.frame);
-        this.status.addFromSupp(() -> "DEBUG INFORMATION:");
-        this.status.addFromSupp(() -> "Uptime: " + TimeUtils.getFormattedDuration(((System.currentTimeMillis() - Application.startTime) / 1000)));
-        this.status.addFromSupp(() -> "OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " (" + System.getProperty("os.arch") + ") as " + System.getProperty("user.name"));
-        this.status.addFromCmd("Temperature", "vcgencmd measure_temp").peek((s) -> s.replace("'C", "°C"));
-//        this.status.addFromCmd("CPU Usage", "/bin/sh -c top -bn1 | grep \"Cpu(s)\" | awk '{print 100 - $8}'").peek((s) -> s + "%");
-        this.status.addFromCmd("IP", "hostname -I");
-        this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> (Integer.parseInt(s))/1000 + " MHz");
-        this.status.addFromCmd("ARM Allocated Memory", "vcgencmd get_mem arm");
+//        this.status.implement(this.frame);
+//        this.status.addFromSupp(() -> "DEBUG INFORMATION:");
+//        this.status.addFromSupp(() -> "Uptime: " + TimeUtils.getFormattedDuration(((System.currentTimeMillis() - Application.startTime) / 1000)));
+//        this.status.addFromSupp(() -> "OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version") + " (" + System.getProperty("os.arch") + ") as " + System.getProperty("user.name"));
+//        this.status.addFromCmd("Temperature", "vcgencmd measure_temp").peek((s) -> s.replace("'C", "°C"));
+////        this.status.addFromCmd("CPU Usage", "/bin/sh -c top -bn1 | grep \"Cpu(s)\" | awk '{print 100 - $8}'").peek((s) -> s + "%");
+//        this.status.addFromCmd("IP", "hostname -I");
+//        this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> (Integer.parseInt(s))/1000 + " MHz");
+//        this.status.addFromCmd("ARM Allocated Memory", "vcgencmd get_mem arm");
 
         this.frame.getContentPane().add(this.root, BorderLayout.CENTER);
         this.frame.pack();
