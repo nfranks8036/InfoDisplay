@@ -124,7 +124,8 @@ public class Application {
         JWebPage news = this.web.createWebPage("https://news.google.com/home?hl=en-US&gl=US&ceid=US%3Aen");
         news.executeJavaScript(
                 "document.body.style.color = 'white';" +
-                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';"
+                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
+                        "document.body.style.zoom = 0.8;"
         );
         this.root.add(news);
 
