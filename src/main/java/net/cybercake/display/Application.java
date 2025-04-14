@@ -121,7 +121,7 @@ public class Application {
 
 //        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
 //        this.root.add(youtube);
-        JWebPage news = this.web.createWebPage("https://news.google.com/home?hl=en-US&gl=US&ceid=US%3Aen");
+        JWebPage news = this.web.createWebPage("https://ground.news/");
         news.executeJavaScript(
                 "document.body.style.color = 'white';" +
                         "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
