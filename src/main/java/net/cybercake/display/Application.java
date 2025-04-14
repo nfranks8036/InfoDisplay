@@ -130,7 +130,7 @@ public class Application {
         this.status.addFromCmd("Temperature", "vcgencmd measure_temp").peek((s) -> s.replace("'C", "°C"));
 //        this.status.addFromCmd("CPU Usage", "/bin/sh -c top -bn1 | grep \"Cpu(s)\" | awk '{print 100 - $8}'").peek((s) -> s + "%");
         this.status.addFromCmd("IP", "hostname -I");
-        this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> (Integer.parseInt(s))/1000 + " MHz");
+        this.status.addFromCmd("Clock Speed", "vcgencmd measure_clock arm").peek((s) -> (Integer.parseInt(s)/1000) + " MHz");
         this.status.addFromCmd("ARM Allocated Memory", "vcgencmd get_mem arm");
 
         this.frame.getContentPane().add(this.root, BorderLayout.CENTER);
