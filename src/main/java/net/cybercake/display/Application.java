@@ -124,8 +124,7 @@ public class Application {
         JWebPage news = this.web.createWebPage("https://www.windy.com/37.230/-80.414?36.734,-80.414,8");
         news.executeJavaScript(
                 "document.body.style.color = 'white';" +
-                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
-                        "document.body.style.zoom = 1.2;"
+                        "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';"
         );
         this.root.add(news);
 
