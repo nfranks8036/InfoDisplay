@@ -121,7 +121,7 @@ public class Application {
 
 //        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
 //        this.root.add(youtube);
-        JWebPage news = this.web.createWebPage("https://www.windy.com/37.230/-80.414?36.734,-80.414,8");
+        JWebPage news = this.web.createWebPage("https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=default&metricTemp=default&metricWind=default&zoom=9&overlay=rain&product=ecmwf&level=surface&lat=37.05&lon=-80.228&detailLat=37.244&detailLon=-80.421&detail=true&message=true");
         news.executeJavaScript(
                 "document.body.style.color = 'white';" +
                         "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';"
