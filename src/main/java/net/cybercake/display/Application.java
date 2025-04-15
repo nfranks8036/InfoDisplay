@@ -125,7 +125,7 @@ public class Application {
         news.executeJavaScript(
                 "document.body.style.color = 'white';" +
                         "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
-                        "document.body.style.zoom = 0.8;"
+                        "document.body.style.zoom = 1.2;"
         );
         this.root.add(news);
 
