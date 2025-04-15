@@ -121,7 +121,7 @@ public class Application {
 
 //        JVlcPlayer youtube = this.vlc.createVlcPlayer("https://www.youtube.com/watch?v=YDfiTGGPYCk", true);
 //        this.root.add(youtube);
-        JWebPage news = this.web.createWebPage("https://james.darpinian.com/satellites/");
+        JWebPage news = this.web.createWebPage("https://www.windy.com/37.230/-80.414?36.734,-80.414,8");
         news.executeJavaScript(
                 "document.body.style.color = 'white';" +
                         "document.body.style.backgroundColor = 'rgba(0, 0, 0, 1)';" +
