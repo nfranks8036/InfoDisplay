@@ -128,8 +128,8 @@ public class Application {
 //        );
 //        this.root.add(windy);
 
-        ImageIcon img = new ImageIcon("./images/pineapple-pizza.jpeg");
-        this.frame.add(new JLabel(img));
+        ImageIcon img = new ImageIcon("images\\pineapple-pizza.jpeg");
+        this.root.add(new JLabel(img));
 
         this.status.implement(this.frame);
         this.status.addFromSupp(() -> "DEBUG INFORMATION:");
