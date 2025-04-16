@@ -16,6 +16,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 
 @SuppressWarnings("CallToPrintStackTrace")
@@ -128,7 +129,7 @@ public class Application {
 //        );
 //        this.root.add(windy);
 
-        ImageIcon img = new ImageIcon("images\\pineapple-pizza.jpeg");
+        ImageIcon img = new ImageIcon("images" + File.separator + "pineapple-pizza.jpeg");
         this.root.add(new JLabel(img));
 
         this.status.implement(this.frame);
