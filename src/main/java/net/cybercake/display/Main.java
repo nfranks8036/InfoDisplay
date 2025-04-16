@@ -34,26 +34,6 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Loading program... please wait!");
         startTime = System.currentTimeMillis();
-        PrintStream orignial = System.err;
-        System.setErr(new PrintStream(new OutputStream() {
-            @Override
-            public void write(int b) throws IOException {
-
-            }
-
-            private boolean logged;
-
-            @Override
-            public void write(byte[] b, int off, int len) throws IOException {
-                String message =  new String(b, off, len);
-                if (!logged && message.contains("network service crashed")) {
-                    orignial.print(message);
-                    logged = true;
-                    return;
-                }
-                orignial.write(b, off, len);
-            }
-        }));
         try {
             loading = new LoadingWindow();
             ArgumentReader reader = new ArgumentReader(args);
